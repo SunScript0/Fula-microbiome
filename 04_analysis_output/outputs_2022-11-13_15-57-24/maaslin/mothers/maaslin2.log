@@ -1,0 +1,227 @@
+2022-11-13 16:01:03 INFO::Writing function arguments to log file
+2022-11-13 16:01:03 DEBUG::Function arguments
+2022-11-13 16:01:03 DEBUG::Output folder: ./04_analysis_output//outputs_2022-11-13_15-57-24/maaslin/mothers
+2022-11-13 16:01:03 DEBUG::Min Abundance: 0.000000
+2022-11-13 16:01:03 DEBUG::Min Prevalence: 0.000000
+2022-11-13 16:01:03 DEBUG::Normalization: TSS
+2022-11-13 16:01:03 DEBUG::Transform: LOG
+2022-11-13 16:01:03 DEBUG::Analysis method: LM
+2022-11-13 16:01:03 DEBUG::Max significance: 0.100000
+2022-11-13 16:01:03 DEBUG::Random effects: Index,TimePoint
+2022-11-13 16:01:03 DEBUG::Fixed effects: Location,AgeC,EntColi
+2022-11-13 16:01:03 DEBUG::Correction method: BH
+2022-11-13 16:01:03 DEBUG::Standardize: TRUE
+2022-11-13 16:01:03 DEBUG::Cores: 1
+2022-11-13 16:01:03 INFO::Verifying options selected are valid
+2022-11-13 16:01:03 INFO::Determining format of input files
+2022-11-13 16:01:03 INFO::Input format is data samples as rows and metadata samples as rows
+2022-11-13 16:01:03 DEBUG::The following samples were found to have metadata but no features. They will be removed. su01c1,su02c1,su03c1,su04c1,su05c1,su06c1,su07c1,su08c1,su09c1,su10c1,su12c1,su14c1,su15c1,su16c1,su18c1,su19c1,su21c1,su22c1,su23c1,su24c1,su25c1,su26c1,su29c1,su30c1,sr31c1,sr32c1,sr33c1,sr34c1,sr35c1,sr36c1,sr37c1,sr39c1,sr40c1,sr41c1,sr42c1,sr43c1,sr45c1,sr46c1,sr48c1,sr50c1,sr51c1,sr52c1,sr53c1,sr55c1,sr56c1,sr57c1,sr58c1,su01c2,su02c2,su03c2,su04c2,su05c2,su06c2,su07c2,su08c2,su10c2,su11c2,su12c2,su13c2,su15c2,su16c2,su17c2,su18c2,su19c2,su20c2,su21c2,su23c2,su24c2,su25c2,su26c2,su27c2,su28c2,su29c2,su30c2,sr31c2,sr32c2,sr33c2,sr34c2,sr35c2,sr36c2,sr37c2,sr38c2,sr39c2,sr40c2,sr41c2,sr42c2,sr43c2,sr45c2,sr46c2,sr48c2,sr49c2,sr50c2,sr51c2,sr52c2,sr53c2,sr54c2,sr55c2,sr56c2,sr57c2,sr58c2,sr60c2
+2022-11-13 16:01:03 DEBUG::A total of 114 samples were found in both the data and metadata
+2022-11-13 16:01:03 DEBUG::Reordering data/metadata to use same sample ordering
+2022-11-13 16:01:03 INFO::Formula for random effects: expr ~ (1 | Index) + (1 | TimePoint)
+2022-11-13 16:01:03 INFO::Formula for fixed effects: expr ~  Location + AgeC + EntColi
+2022-11-13 16:01:03 INFO::Filter data based on min abundance and min prevalence
+2022-11-13 16:01:03 INFO::Total samples in data: 114
+2022-11-13 16:01:03 INFO::Min samples required with min abundance for a feature not to be filtered: 0.000000
+2022-11-13 16:01:03 INFO::Total filtered features: 0
+2022-11-13 16:01:03 INFO::Filtered feature names from abundance and prevalence filtering:
+2022-11-13 16:01:03 INFO::Total filtered features with variance filtering: 0
+2022-11-13 16:01:03 INFO::Filtered feature names from variance filtering:
+2022-11-13 16:01:03 INFO::Running selected normalization method: TSS
+2022-11-13 16:01:03 INFO::Applying z-score to standardize continuous metadata
+2022-11-13 16:01:03 INFO::Running selected transform method: LOG
+2022-11-13 16:01:03 INFO::Running selected analysis method: LM
+2022-11-13 16:01:03 INFO::Fitting model to feature number 1, Actinomyces
+2022-11-13 16:01:04 INFO::Fitting model to feature number 2, Bifidobacterium
+2022-11-13 16:01:04 INFO::Fitting model to feature number 3, Rothia
+2022-11-13 16:01:04 INFO::Fitting model to feature number 4, Atopobium
+2022-11-13 16:01:04 INFO::Fitting model to feature number 5, Libanicoccus
+2022-11-13 16:01:04 INFO::Fitting model to feature number 6, Olsenella
+2022-11-13 16:01:04 INFO::Fitting model to feature number 7, Collinsella
+2022-11-13 16:01:04 INFO::Fitting model to feature number 8, Eggerthella
+2022-11-13 16:01:04 INFO::Fitting model to feature number 9, Senegalimassilia
+2022-11-13 16:01:04 INFO::Fitting model to feature number 10, Slackia
+2022-11-13 16:01:04 INFO::Fitting model to feature number 11, Butyricimonas
+2022-11-13 16:01:04 INFO::Fitting model to feature number 12, Muribaculaceae
+2022-11-13 16:01:05 INFO::Fitting model to feature number 13, Prevotellaceae_UCG.003
+2022-11-13 16:01:05 INFO::Fitting model to feature number 14, Alistipes
+2022-11-13 16:01:05 INFO::Fitting model to feature number 15, Rikenellaceae_RC9_gut_group
+2022-11-13 16:01:05 INFO::Fitting model to feature number 16, Parabacteroides
+2022-11-13 16:01:05 INFO::Fitting model to feature number 17, Campylobacter
+2022-11-13 16:01:05 INFO::Fitting model to feature number 18, Helicobacter
+2022-11-13 16:01:05 INFO::Fitting model to feature number 19, Desulfovibrio
+2022-11-13 16:01:05 INFO::Fitting model to feature number 20, Elusimicrobium
+2022-11-13 16:01:05 INFO::Fitting model to feature number 21, Anaeroplasma
+2022-11-13 16:01:05 INFO::Fitting model to feature number 22, Bacillus
+2022-11-13 16:01:05 INFO::Fitting model to feature number 23, Asteroleplasma
+2022-11-13 16:01:05 INFO::Fitting model to feature number 24, Catenibacterium
+2022-11-13 16:01:06 INFO::Fitting model to feature number 25, Holdemanella
+2022-11-13 16:01:06 INFO::Fitting model to feature number 26, Solobacterium
+2022-11-13 16:01:06 INFO::Fitting model to feature number 27, Turicibacter
+2022-11-13 16:01:06 INFO::Fitting model to feature number 28, Izemoplasmatales
+2022-11-13 16:01:06 INFO::Fitting model to feature number 29, Enterococcus
+2022-11-13 16:01:06 INFO::Fitting model to feature number 30, Lactobacillus
+2022-11-13 16:01:06 INFO::Fitting model to feature number 31, Lactococcus
+2022-11-13 16:01:06 INFO::Fitting model to feature number 32, Streptococcus
+2022-11-13 16:01:06 INFO::Fitting model to feature number 33, Vagococcus
+2022-11-13 16:01:06 INFO::Fitting model to feature number 34, RF39
+2022-11-13 16:01:06 INFO::Fitting model to feature number 35, Gemella
+2022-11-13 16:01:06 INFO::Fitting model to feature number 36, Christensenellaceae_R.7_group
+2022-11-13 16:01:07 INFO::Fitting model to feature number 37, Clostridia_UCG.014
+2022-11-13 16:01:07 INFO::Fitting model to feature number 38, Clostridia_vadinBB60_group
+2022-11-13 16:01:07 INFO::Fitting model to feature number 39, Clostridium_sensu_stricto_1
+2022-11-13 16:01:07 INFO::Fitting model to feature number 40, Anaerofustis
+2022-11-13 16:01:07 INFO::Fitting model to feature number 41, Eubacterium
+2022-11-13 16:01:07 INFO::Fitting model to feature number 42, Defluviitaleaceae_UCG.011
+2022-11-13 16:01:07 INFO::Fitting model to feature number 43, X.Bacteroides._pectinophilus_group
+2022-11-13 16:01:07 INFO::Fitting model to feature number 44, X.Eubacterium._eligens_group
+2022-11-13 16:01:07 INFO::Fitting model to feature number 45, X.Eubacterium._hallii_group
+2022-11-13 16:01:07 INFO::Fitting model to feature number 46, X.Eubacterium._ruminantium_group
+2022-11-13 16:01:07 INFO::Fitting model to feature number 47, X.Eubacterium._ventriosum_group
+2022-11-13 16:01:07 INFO::Fitting model to feature number 48, X.Eubacterium._xylanophilum_group
+2022-11-13 16:01:08 INFO::Fitting model to feature number 49, X.Ruminococcus._gauvreauii_group
+2022-11-13 16:01:08 INFO::Fitting model to feature number 50, X.Ruminococcus._gnavus_group
+2022-11-13 16:01:08 INFO::Fitting model to feature number 51, X.Ruminococcus._torques_group
+2022-11-13 16:01:08 INFO::Fitting model to feature number 52, Agathobacter
+2022-11-13 16:01:08 INFO::Fitting model to feature number 53, Anaerostipes
+2022-11-13 16:01:08 INFO::Fitting model to feature number 54, Blautia
+2022-11-13 16:01:08 INFO::Fitting model to feature number 55, Butyrivibrio
+2022-11-13 16:01:08 INFO::Fitting model to feature number 56, CAG.56
+2022-11-13 16:01:08 INFO::Fitting model to feature number 57, Coprococcus
+2022-11-13 16:01:08 INFO::Fitting model to feature number 58, Dorea
+2022-11-13 16:01:08 INFO::Fitting model to feature number 59, Fusicatenibacter
+2022-11-13 16:01:08 INFO::Fitting model to feature number 60, GCA.900066575
+2022-11-13 16:01:08 INFO::Fitting model to feature number 61, Howardella
+2022-11-13 16:01:09 INFO::Fitting model to feature number 62, Lachnoclostridium
+2022-11-13 16:01:09 INFO::Fitting model to feature number 63, Lachnospira
+2022-11-13 16:01:09 INFO::Fitting model to feature number 64, Lachnospiraceae_FCS020_group
+2022-11-13 16:01:09 INFO::Fitting model to feature number 65, Lachnospiraceae_ND3007_group
+2022-11-13 16:01:09 INFO::Fitting model to feature number 66, Lachnospiraceae_NK3A20_group
+2022-11-13 16:01:09 INFO::Fitting model to feature number 67, Lachnospiraceae_NK4A136_group
+2022-11-13 16:01:09 INFO::Fitting model to feature number 68, Lachnospiraceae_NK4B4_group
+2022-11-13 16:01:09 INFO::Fitting model to feature number 69, Lachnospiraceae_UCG.001
+2022-11-13 16:01:09 INFO::Fitting model to feature number 70, Lachnospiraceae_UCG.003
+2022-11-13 16:01:09 INFO::Fitting model to feature number 71, Lachnospiraceae_UCG.004
+2022-11-13 16:01:09 INFO::Fitting model to feature number 72, Lachnospiraceae_UCG.010
+2022-11-13 16:01:09 INFO::Fitting model to feature number 73, Marvinbryantia
+2022-11-13 16:01:10 INFO::Fitting model to feature number 74, Moryella
+2022-11-13 16:01:10 INFO::Fitting model to feature number 75, Oribacterium
+2022-11-13 16:01:10 INFO::Fitting model to feature number 76, Roseburia
+2022-11-13 16:01:10 INFO::Fitting model to feature number 77, Sellimonas
+2022-11-13 16:01:10 INFO::Fitting model to feature number 78, Tuzzerella
+2022-11-13 16:01:10 INFO::Fitting model to feature number 79, Tyzzerella
+2022-11-13 16:01:10 INFO::Fitting model to feature number 80, Monoglobus
+2022-11-13 16:01:10 INFO::Fitting model to feature number 81, X.Eubacterium._coprostanoligenes_group
+2022-11-13 16:01:10 INFO::Fitting model to feature number 82, Butyricicoccus
+2022-11-13 16:01:10 INFO::Fitting model to feature number 83, UCG.008
+2022-11-13 16:01:10 INFO::Fitting model to feature number 84, UCG.009
+2022-11-13 16:01:10 INFO::Fitting model to feature number 85, Colidextribacter
+2022-11-13 16:01:11 INFO::Fitting model to feature number 86, Flavonifractor
+2022-11-13 16:01:11 INFO::Fitting model to feature number 87, Intestinimonas
+2022-11-13 16:01:11 INFO::Fitting model to feature number 88, NK4A214_group
+2022-11-13 16:01:11 INFO::Fitting model to feature number 89, Oscillibacter
+2022-11-13 16:01:11 INFO::Fitting model to feature number 90, Oscillospira
+2022-11-13 16:01:11 INFO::Fitting model to feature number 91, Papillibacter
+2022-11-13 16:01:11 INFO::Fitting model to feature number 92, UCG.002
+2022-11-13 16:01:11 INFO::Fitting model to feature number 93, UCG.003
+2022-11-13 16:01:11 INFO::Fitting model to feature number 94, UCG.005
+2022-11-13 16:01:11 INFO::Fitting model to feature number 95, UCG.007
+2022-11-13 16:01:11 INFO::Fitting model to feature number 96, Hydrogenoanaerobacterium
+2022-11-13 16:01:11 INFO::Fitting model to feature number 97, X.Eubacterium._siraeum_group
+2022-11-13 16:01:11 INFO::Fitting model to feature number 98, Anaerotruncus
+2022-11-13 16:01:12 INFO::Fitting model to feature number 99, CAG.352
+2022-11-13 16:01:12 INFO::Fitting model to feature number 100, Candidatus_Soleaferrea
+2022-11-13 16:01:12 INFO::Fitting model to feature number 101, Faecalibacterium
+2022-11-13 16:01:12 INFO::Fitting model to feature number 102, Incertae_Sedis
+2022-11-13 16:01:12 INFO::Fitting model to feature number 103, Phocea
+2022-11-13 16:01:12 INFO::Fitting model to feature number 104, Ruminococcus
+2022-11-13 16:01:12 INFO::Fitting model to feature number 105, Subdoligranulum
+2022-11-13 16:01:12 INFO::Fitting model to feature number 106, UCG.010
+2022-11-13 16:01:12 INFO::Fitting model to feature number 107, Peptococcus
+2022-11-13 16:01:12 INFO::Fitting model to feature number 108, Family_XIII_AD3011_group
+2022-11-13 16:01:12 INFO::Fitting model to feature number 109, Family_XIII_UCG.001
+2022-11-13 16:01:12 INFO::Fitting model to feature number 110, Mogibacterium
+2022-11-13 16:01:13 INFO::Fitting model to feature number 111, Intestinibacter
+2022-11-13 16:01:13 INFO::Fitting model to feature number 112, Romboutsia
+2022-11-13 16:01:13 INFO::Fitting model to feature number 113, Terrisporobacter
+2022-11-13 16:01:13 INFO::Fitting model to feature number 114, Fenollaria
+2022-11-13 16:01:13 INFO::Fitting model to feature number 115, Finegoldia
+2022-11-13 16:01:13 INFO::Fitting model to feature number 116, Parvimonas
+2022-11-13 16:01:13 INFO::Fitting model to feature number 117, Peptoniphilus
+2022-11-13 16:01:13 INFO::Fitting model to feature number 118, Acidaminococcus
+2022-11-13 16:01:13 INFO::Fitting model to feature number 119, Anaerovibrio
+2022-11-13 16:01:13 INFO::Fitting model to feature number 120, Mitsuokella
+2022-11-13 16:01:13 INFO::Fitting model to feature number 121, Allisonella
+2022-11-13 16:01:13 INFO::Fitting model to feature number 122, Dialister
+2022-11-13 16:01:14 INFO::Fitting model to feature number 123, Megasphaera
+2022-11-13 16:01:14 INFO::Fitting model to feature number 124, Veillonella
+2022-11-13 16:01:14 INFO::Fitting model to feature number 125, Fusobacterium
+2022-11-13 16:01:14 INFO::Fitting model to feature number 126, TM7x
+2022-11-13 16:01:14 INFO::Fitting model to feature number 127, Acetobacter
+2022-11-13 16:01:14 INFO::Fitting model to feature number 128, Phyllobacterium
+2022-11-13 16:01:14 INFO::Fitting model to feature number 129, Paracoccus
+2022-11-13 16:01:14 INFO::Fitting model to feature number 130, Succinivibrio
+2022-11-13 16:01:14 INFO::Fitting model to feature number 131, Comamonas
+2022-11-13 16:01:14 INFO::Fitting model to feature number 132, Oxalobacter
+2022-11-13 16:01:14 INFO::Fitting model to feature number 133, Parasutterella
+2022-11-13 16:01:14 INFO::Fitting model to feature number 134, Sutterella
+2022-11-13 16:01:15 INFO::Fitting model to feature number 135, Enterobacter
+2022-11-13 16:01:15 INFO::Fitting model to feature number 136, Escherichia.Shigella
+2022-11-13 16:01:15 INFO::Fitting model to feature number 137, Klebsiella
+2022-11-13 16:01:15 INFO::Fitting model to feature number 138, Haemophilus
+2022-11-13 16:01:15 INFO::Fitting model to feature number 139, Acinetobacter
+2022-11-13 16:01:15 INFO::Fitting model to feature number 140, Treponema
+2022-11-13 16:01:15 INFO::Fitting model to feature number 141, vadinBE97
+2022-11-13 16:01:15 INFO::Fitting model to feature number 142, Victivallis
+2022-11-13 16:01:15 INFO::Fitting model to feature number 143, Akkermansia
+2022-11-13 16:01:15 INFO::Counting total values for each feature
+2022-11-13 16:01:15 INFO::Writing residuals to file ./04_analysis_output//outputs_2022-11-13_15-57-24/maaslin/mothers/residuals.rds
+2022-11-13 16:01:15 INFO::Writing fitted values to file ./04_analysis_output//outputs_2022-11-13_15-57-24/maaslin/mothers/fitted.rds
+2022-11-13 16:01:15 INFO::Writing extracted random effects to file ./04_analysis_output//outputs_2022-11-13_15-57-24/maaslin/mothers/ranef.rds
+2022-11-13 16:01:15 INFO::Writing all results to file (ordered by increasing q-values): ./04_analysis_output//outputs_2022-11-13_15-57-24/maaslin/mothers/all_results.tsv
+2022-11-13 16:01:15 INFO::Writing the significant results (those which are less than or equal to the threshold of 0.100000 ) to file (ordered by increasing q-values): ./04_analysis_output//outputs_2022-11-13_15-57-24/maaslin/mothers/significant_results.tsv
+2022-11-13 16:01:15 INFO::Writing heatmap of significant results to file: ./04_analysis_output//outputs_2022-11-13_15-57-24/maaslin/mothers/heatmap.pdf
+2022-11-13 16:01:15 INFO::Writing association plots (one for each significant association) to output folder: ./04_analysis_output//outputs_2022-11-13_15-57-24/maaslin/mothers
+2022-11-13 16:01:16 INFO::Plotting associations from most to least significant, grouped by metadata
+2022-11-13 16:01:16 INFO::Plotting data for metadata number 1, Location
+2022-11-13 16:01:16 INFO::Creating boxplot for categorical data, Location vs Enterococcus
+2022-11-13 16:01:16 INFO::Creating boxplot for categorical data, Location vs Butyrivibrio
+2022-11-13 16:01:16 INFO::Creating boxplot for categorical data, Location vs Anaerovibrio
+2022-11-13 16:01:16 INFO::Creating boxplot for categorical data, Location vs Oscillospira
+2022-11-13 16:01:16 INFO::Creating boxplot for categorical data, Location vs Enterobacter
+2022-11-13 16:01:16 INFO::Creating boxplot for categorical data, Location vs Lachnospira
+2022-11-13 16:01:17 INFO::Creating boxplot for categorical data, Location vs Izemoplasmatales
+2022-11-13 16:01:17 INFO::Creating boxplot for categorical data, Location vs Lactococcus
+2022-11-13 16:01:19 INFO::Plotting data for metadata number 2, EntColi
+2022-11-13 16:01:19 INFO::Creating boxplot for categorical data, EntColi vs Streptococcus
+2022-11-13 16:01:19 INFO::Creating boxplot for categorical data, EntColi vs Enterococcus
+2022-11-13 16:01:19 INFO::Creating boxplot for categorical data, EntColi vs RF39
+2022-11-13 16:01:20 INFO::Plotting data for metadata number 3, AgeC
+2022-11-13 16:01:20 INFO::Creating scatter plot for continuous data, AgeC vs Collinsella
+2022-11-13 16:01:26 DEBUG::`geom_smooth()` using formula = 'y ~ x'
+2022-11-13 16:01:26 INFO::Creating scatter plot for continuous data, AgeC vs Escherichia.Shigella
+2022-11-13 16:01:26 DEBUG::`geom_smooth()` using formula = 'y ~ x'
+2022-11-13 16:01:26 INFO::Creating scatter plot for continuous data, AgeC vs Mitsuokella
+2022-11-13 16:01:27 DEBUG::`geom_smooth()` using formula = 'y ~ x'
+2022-11-13 16:01:27 INFO::Creating scatter plot for continuous data, AgeC vs Bifidobacterium
+2022-11-13 16:01:27 DEBUG::`geom_smooth()` using formula = 'y ~ x'
+2022-11-13 16:01:27 INFO::Creating scatter plot for continuous data, AgeC vs Lachnospiraceae_UCG.001
+2022-11-13 16:01:27 DEBUG::`geom_smooth()` using formula = 'y ~ x'
+2022-11-13 16:01:27 INFO::Creating scatter plot for continuous data, AgeC vs Senegalimassilia
+2022-11-13 16:01:27 DEBUG::`geom_smooth()` using formula = 'y ~ x'
+2022-11-13 16:01:27 INFO::Creating scatter plot for continuous data, AgeC vs Alistipes
+2022-11-13 16:01:28 DEBUG::`geom_smooth()` using formula = 'y ~ x'
+2022-11-13 16:01:28 INFO::Creating scatter plot for continuous data, AgeC vs Succinivibrio
+2022-11-13 16:01:29 DEBUG::`geom_smooth()` using formula = 'y ~ x'
+2022-11-13 16:01:29 INFO::Creating scatter plot for continuous data, AgeC vs Enterococcus
+2022-11-13 16:01:30 DEBUG::`geom_smooth()` using formula = 'y ~ x'
+2022-11-13 16:01:30 INFO::Creating scatter plot for continuous data, AgeC vs Slackia
+2022-11-13 16:01:31 DEBUG::`geom_smooth()` using formula = 'y ~ x'
+2022-11-13 16:01:31 INFO::Creating scatter plot for continuous data, AgeC vs X.Eubacterium._ventriosum_group
+2022-11-13 16:01:33 DEBUG::`geom_smooth()` using formula = 'y ~ x'
+2022-11-13 16:01:33 INFO::Creating scatter plot for continuous data, AgeC vs Lachnospiraceae_NK4A136_group
+2022-11-13 16:01:34 DEBUG::`geom_smooth()` using formula = 'y ~ x'
+2022-11-13 16:01:34 INFO::Creating scatter plot for continuous data, AgeC vs TM7x
+2022-11-13 16:01:35 DEBUG::`geom_smooth()` using formula = 'y ~ x'
+2022-11-13 16:01:35 INFO::Creating scatter plot for continuous data, AgeC vs Peptoniphilus
+2022-11-13 16:01:37 DEBUG::`geom_smooth()` using formula = 'y ~ x'

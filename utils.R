@@ -78,7 +78,7 @@ my_compare_means = function(data, dvars, indvar, grouping, pairing = NULL) {
   out$p = numeric()
   # Distinct groups
   groups = data %>%
-    select(grouping) %>%
+    dplyr::select(grouping) %>%
     distinct()
   # Levels of independent variable
   levs = unique(data[, indvar])
