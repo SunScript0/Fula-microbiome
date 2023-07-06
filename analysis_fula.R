@@ -16,7 +16,7 @@ library(cowplot)
 library(scales)
 library(tidyverse)
 
-setwd("/scratch/fmorandi/fula_test/Fula-microbiome")
+setwd("C:/Users/mora_/Desktop/Review/Fula-microbiome")
 source("./utils.R")
 
 datapath = "./03_processed_data"
@@ -326,6 +326,10 @@ mds$all$bray_with_proteo = ab$asv_rare %>%
   vegdist() %>%
   as.matrix() %>%
   cmdscale(., eig = TRUE, k = 2)
+mds$all$aitch_with_proteo = ab$asv_rare %>%
+  vegdist(method="robust.aitchison") %>%
+  as.matrix() %>%
+  cmdscale(., eig = TRUE, k = 2)
 mds$all$unifracU_with_proteo = ab$asv_rare %>%
   t() %>%
   rbiom::unifrac(., weighted=F, tree=tree) %>%
@@ -350,6 +354,10 @@ for (type in names(mds$all)) {
 plots$beta = list()
 point_size = 1.5
 
+ggplot(mds_points$all$aitch_with_proteo, aes(x=PC1, y=PC2, color=Group4, shape=Proteobacteria >50 & AdultChild == "Child"))+
+  geom_point(size=point_size, alpha=0.5)+
+  scale_shape_manual("Proteobacteria > 50% & Infant", values=c(19, 8))+
+  scale_color_discrete("Group", labels = c("Mothers T1", "Infants T1", "Mothers T2", "Infants T2"))
 plots$beta$all_pcoa = ggplot(mds_points$all$unifracW, aes(x=PC1, y=PC2, color=Group4, shape=Proteobacteria >50 & AdultChild == "Child"))+
   geom_point(size=point_size, alpha=0.5)+
   scale_shape_manual("Proteobacteria > 50% & Infant", values=c(19, 8))+
@@ -379,12 +387,14 @@ alpha_div_comparison = data.frame("shannon" = alpha_shan, "shannon_rare" = alpha
                                   "pd" = alpha_pd, "pd_rare" = alpha_pd_rare)
 
 plots$alpha$metric_comp = ggpairs(alpha_div_comparison)
+  
+
 
 # Chao1 and ACE are basically the same, will drop ACE
 # Rarefaction or not does not make much difference, will go for rarefied
-alpha = data.frame("Shannon" = alpha_shan_rare,
-                   "Chao1" = alpha_chao_rare,
-                   "PD" = alpha_pd_rare) # Use rarefied
+alpha = data.frame("Shannon" = alpha_shan,
+                   "Chao1" = alpha_chao,
+                   "PD" = alpha_pd) # Use rarefied
 alpha = merge(alpha, meta, by="row.names")
 
 ##### ALPHA DIVERSITY: compare location #####
@@ -409,7 +419,8 @@ alpha_comp_location$group1 = rep(c("Rural.Adult.1", "Rural.Adult.2",
                                    "Rural.Child.1", "Rural.Child.2"), each = 3)
 alpha_comp_location$group2 = rep(c("Urban.Adult.1", "Urban.Adult.2",
                                    "Urban.Child.1", "Urban.Child.2"), each = 3)
-alpha_comp_location$p.format = formatC(alpha_comp_location$p, 2)
+alpha_comp_location$p.format = str_pad(round(alpha_comp_location$p, 3), 5, "right", pad = "0")
+alpha_comp_location[alpha_comp_location$p < 0.001, "p.format"] = "< 0.001"
 
 # Chao1 adults
 plots$alpha$adults_chao = alpha %>%
@@ -421,8 +432,8 @@ plots$alpha$adults_chao = alpha %>%
     stat_pvalue_manual(subset(alpha_comp_location, Dependent == "Chao1" & AdultChild == "Adult"),
                               y.position = 480, label = "p.format", size = pval_size) +
     ylim(0, 520) +
-    theme(legend.position="none")+
-    labs(x="") +
+    theme(legend.position="none",
+          axis.title.x=element_blank())+
     scale_x_discrete(labels=c(
       "Rural\nmothers\nT1", "Urban\nmothers\nT1",
       "Rural\nmothers\nT2", "Urban\nmothers\nT2"))
@@ -437,8 +448,8 @@ plots$alpha$infants_chao = alpha %>%
     stat_pvalue_manual(subset(alpha_comp_location, Dependent == "Chao1" & AdultChild == "Child"),
                        y.position = 350, label = "p.format", size = pval_size) +
     ylim(0, 380) +
-    theme(legend.position="none")+
-    labs(x="") +
+    theme(legend.position="none",
+          axis.title.x=element_blank())+
     scale_x_discrete(labels=c(
       "Rural\ninfants\nT1", "Urban\ninfants\nT1",
       "Rural\ninfants\nT2", "Urban\ninfants\nT2"))
@@ -453,8 +464,8 @@ plots$alpha$adults_shan = alpha %>%
     stat_pvalue_manual(subset(alpha_comp_location, Dependent == "Shannon" & AdultChild == "Adult"),
                        y.position = 6, label = "p.format", size = pval_size) +
     ylim(0, 6.5) +
-    theme(legend.position="none")+
-    labs(x="") +
+    theme(legend.position="none",
+          axis.title.x=element_blank())+
     scale_x_discrete(labels=c(
       "Rural\nmothers\nT1", "Urban\nmothers\nT1",
       "Rural\nmothers\nT2", "Urban\nmothers\nT2"))
@@ -469,8 +480,8 @@ plots$alpha$infants_shan = alpha %>%
     stat_pvalue_manual(subset(alpha_comp_location, Dependent == "Shannon" & AdultChild == "Child"),
                        y.position = 4.6, label = "p.format", size = pval_size) +
     ylim(0, 5.2) +
-    theme(legend.position="none")+
-    labs(x="") +
+    theme(legend.position="none",
+          axis.title.x=element_blank())+
     scale_x_discrete(labels=c(
       "Rural\ninfants\nT1", "Urban\ninfants\nT1",
       "Rural\ninfants\nT2", "Urban\ninfants\nT2"))
@@ -485,8 +496,8 @@ plots$alpha$adults_PD = alpha %>%
     stat_pvalue_manual(subset(alpha_comp_location, Dependent == "PD" & AdultChild == "Adult"),
                        y.position = 42, label = "p.format", size = pval_size) +
     ylim(0, 45) +
-    theme(legend.position="none")+
-    labs(x="") +
+    theme(legend.position="none",
+          axis.title.x=element_blank())+
     scale_x_discrete(labels=c(
       "Rural\nmothers\nT1", "Urban\nmothers\nT1",
       "Rural\nmothers\nT2", "Urban\nmothers\nT2"))
@@ -501,8 +512,8 @@ plots$alpha$infants_PD = alpha %>%
     stat_pvalue_manual(subset(alpha_comp_location, Dependent == "PD" & AdultChild == "Child"),
                        y.position = 27, label = "p.format", size = pval_size) +
     ylim(0, 31) +
-    theme(legend.position="none")+
-    labs(x="") +
+    theme(legend.position="none",
+          axis.title.x=element_blank())+
     scale_x_discrete(labels=c(
       "Rural\ninfants\nT1", "Urban\ninfants\nT1",
       "Rural\ninfants\nT2", "Urban\ninfants\nT2"))
@@ -528,7 +539,8 @@ alpha_comp_time$group1 = rep(c("Rural.Adult.1", "Rural.Child.1",
                                "Urban.Adult.1", "Urban.Child.1"), each = 3)
 alpha_comp_time$group2 = rep(c("Rural.Adult.2", "Rural.Child.2",
                                "Urban.Adult.2", "Urban.Child.2"), each = 3)
-alpha_comp_time$p.format = formatC(alpha_comp_time$p, 2)
+alpha_comp_time$p.format = str_pad(round(alpha_comp_time$p, 3), 5, "right", pad = "0")
+alpha_comp_time[alpha_comp_time$p < 0.001, "p.format"] = "< 0.001"
 
 # Chao1 adults
 plots$alpha$adults_chao_time = alpha %>%
@@ -541,8 +553,8 @@ plots$alpha$adults_chao_time = alpha %>%
     stat_pvalue_manual(subset(alpha_comp_time, Dependent == "Chao1" & AdultChild == "Adult"),
                        y.position = 480, label = "p.format", size = pval_size) +
     ylim(0, 520) +
-    theme(legend.position="none")+
-    labs(x="") +
+    theme(legend.position="none",
+          axis.title.x=element_blank())+
     scale_x_discrete(labels=c(
       "Rural\nmothers\nT1", "Rural\nmothers\nT2",
       "Urban\nmothers\nT1", "Urban\nmothers\nT2"))
@@ -558,8 +570,8 @@ plots$alpha$infants_chao_time = alpha %>%
     stat_pvalue_manual(subset(alpha_comp_time, Dependent == "Chao1" & AdultChild == "Child"),
                        y.position = 350, label = "p.format", size = pval_size) +
     ylim(0, 380) +
-    theme(legend.position="none")+
-    labs(x="") +
+    theme(legend.position="none",
+          axis.title.x=element_blank())+
     scale_x_discrete(labels=c(
       "Rural\ninfants\nT1", "Rural\ninfants\nT2",
       "Urban\ninfants\nT1", "Urban\ninfants\nT2"))
@@ -575,8 +587,8 @@ plots$alpha$adults_shan_time = alpha %>%
     stat_pvalue_manual(subset(alpha_comp_time, Dependent == "Shannon" & AdultChild == "Adult"),
                        y.position = 6, label = "p.format", size = pval_size) +
     ylim(0, 6.5) +
-    theme(legend.position="none")+
-    labs(x="") +
+    theme(legend.position="none",
+          axis.title.x=element_blank())+
     scale_x_discrete(labels=c(
       "Rural\nmothers\nT1", "Rural\nmothers\nT2",
       "Urban\nmothers\nT1", "Urban\nmothers\nT2"))
@@ -592,8 +604,8 @@ plots$alpha$infants_shan_time = alpha %>%
     stat_pvalue_manual(subset(alpha_comp_time, Dependent == "Shannon" & AdultChild == "Child"),
                        y.position = 4.6, label = "p.format", size = pval_size) +
     ylim(0, 5.2) +
-    theme(legend.position="none")+
-    labs(x="") +
+    theme(legend.position="none",
+          axis.title.x=element_blank())+
     scale_x_discrete(labels=c(
       "Rural\ninfants\nT1", "Rural\ninfants\nT2",
       "Urban\ninfants\nT1", "Urban\ninfants\nT2"))
@@ -609,8 +621,8 @@ plots$alpha$adults_PD_time = alpha %>%
     stat_pvalue_manual(subset(alpha_comp_time, Dependent == "PD" & AdultChild == "Adult"),
                        y.position = 42, label = "p.format", size = pval_size) +
     ylim(0, 45) +
-    theme(legend.position="none")+
-    labs(x="") +
+    theme(legend.position="none",
+          axis.title.x=element_blank())+
     scale_x_discrete(labels=c(
       "Rural\nmothers\nT1", "Rural\nmothers\nT2",
       "Urban\nmothers\nT1", "Urban\nmothers\nT2"))
@@ -626,8 +638,8 @@ plots$alpha$infants_PD_time = alpha %>%
     stat_pvalue_manual(subset(alpha_comp_time, Dependent == "PD" & AdultChild == "Child"),
                        y.position = 27, label = "p.format", size = pval_size) +
     ylim(0, 31) +
-    theme(legend.position="none")+
-    labs(x="") +
+    theme(legend.position="none",
+          axis.title.x=element_blank())+
     scale_x_discrete(labels=c(
       "Rural\ninfants\nT1", "Rural\ninfants\nT2",
       "Urban\ninfants\nT1", "Urban\ninfants\nT2"))
@@ -651,7 +663,7 @@ plots$alpha_reg$time_since_preg = alpha %>%
   ggplot(., aes(x=AgeC, y=Chao1, color=TimePoint))+
     geom_point(size = point_size, alpha=0.5)+
     geom_smooth(method="lm")+
-    stat_cor() +
+    stat_cor(cor.coef.name="r", label.x = c(0, 10), label.y=470) +
     theme(legend.position = "left")+
     labs(x="Time since pregnancy [months]")+
     ylim(c(0,500))
@@ -779,8 +791,8 @@ plots$alpha_reg$ent_coli = ggplot(alpha_nona, aes(x = Group3, y = Chao1, color=E
   geom_boxplot(outlier.shape = NA) +
   geom_point(position=position_jitterdodge(jitter.width = 0.2), size=point_size)+
   scale_color_manual(values = c("#888888", "purple"))+
-  theme(legend.position = "left")+
-  labs(x="") +
+  theme(legend.position = "left",
+        axis.title.x = element_blank())+
   scale_x_discrete(labels=c(
     "Rural\nmothers\nT1","Rural\nmothers\nT2","Urban\nmothers\nT1","Urban\nmothers\nT2"))
 
@@ -891,9 +903,10 @@ meta %>%
 ##### BETA DIVERSITY: prep #####
 
 beta = list()
-beta$bray = vegdist(ab$asv_rare)
-beta$unifracU = rbiom::unifrac(t(ab$asv_rare), weighted=F, tree=tree)
-beta$unifracW = rbiom::unifrac(t(ab$asv_rare), weighted=T, tree=tree)
+beta$bray = vegdist(ab$asv)
+beta$aitch = vegdist(ab$asv, method="robust.aitchison")
+beta$unifracU = rbiom::unifrac(t(ab$asv), weighted=F, tree=tree)
+beta$unifracW = rbiom::unifrac(t(ab$asv), weighted=T, tree=tree)
 
 ##### BETA DIVERSITY: compare metrics #####
 
@@ -901,55 +914,65 @@ plots$beta$metric_comp = ggpairs(as.data.frame(do.call(cbind, beta)),
                                  lower = list(continuous = "density"))
 
 beta$bray = as.matrix(beta$bray)
+beta$aitch = as.matrix(beta$aitch)
 beta$unifracU = as.matrix(beta$unifracU)
 beta$unifracW = as.matrix(beta$unifracW)
 
-# Here I look at how well these beta div metrics disctiminate between groups
+# Here I look at how well these beta div metrics discriminate between groups
 # i.e. adult vs child or individuals. This serves as sanity check
 
 p1 = in_vs_out_group_dists(beta$bray, meta, "AdultChild") %>%
   ggplot(., aes(x=value, fill=type))+
   geom_density(alpha=0.5)+
   xlim(c(0,1))
-p2 = in_vs_out_group_dists(beta$unifracU, meta, "AdultChild") %>%
+p2 = in_vs_out_group_dists(beta$aitch, meta, "AdultChild") %>%
+  ggplot(., aes(x=value, fill=type))+
+  geom_density(alpha=0.5)
+p3 = in_vs_out_group_dists(beta$unifracU, meta, "AdultChild") %>%
   ggplot(., aes(x=value, fill=type))+
   geom_density(alpha=0.5)+
   xlim(c(0,1))
-p3 = in_vs_out_group_dists(beta$unifracW, meta, "AdultChild") %>%
+p4 = in_vs_out_group_dists(beta$unifracW, meta, "AdultChild") %>%
   ggplot(., aes(x=value, fill=type))+
   geom_density(alpha=0.5)+
   xlim(c(0,1))
-plots$beta$hists_AdultChild = ggarrange(p1, p2, p3, nrow=3, common.legend = T)
+plots$beta$hists_AdultChild = ggarrange(p1, p2, p3, p4, nrow=4, common.legend = T)
 # Obviously unifracW discriminates adults vs children much better
 
 p1 = in_vs_out_group_dists(beta$bray, filter(meta, AdultChild == "Adult"), "Index") %>%
   ggplot(., aes(x=value, fill=type))+
   geom_density(alpha=0.5)+
   xlim(c(0,1))
-p2 = in_vs_out_group_dists(beta$unifracU, filter(meta, AdultChild == "Adult"), "Index") %>%
+p2 = in_vs_out_group_dists(beta$aitch, filter(meta, AdultChild == "Adult"), "Index") %>%
+  ggplot(., aes(x=value, fill=type))+
+  geom_density(alpha=0.5)
+p3 = in_vs_out_group_dists(beta$unifracU, filter(meta, AdultChild == "Adult"), "Index") %>%
   ggplot(., aes(x=value, fill=type))+
   geom_density(alpha=0.5)+
   xlim(c(0,1))
-p3 = in_vs_out_group_dists(beta$unifracW, filter(meta, AdultChild == "Adult"), "Index") %>%
+p4 = in_vs_out_group_dists(beta$unifracW, filter(meta, AdultChild == "Adult"), "Index") %>%
   ggplot(., aes(x=value, fill=type))+
   geom_density(alpha=0.5)+
   xlim(c(0,1))
-plots$beta$hists_individuals_adults = ggarrange(p1, p2, p3, nrow = 3, common.legend = T)
+plots$beta$hists_individuals_adults = ggarrange(p1, p2, p3, p4, nrow = 4, common.legend = T)
 # All 3 metrics seem equally good at recognizing that the same individuals are closest to themselves
 
 p1 = in_vs_out_group_dists(beta$bray, filter(meta, AdultChild == "Child"), "Index", list("TimePoint.x != TimePoint.y")) %>%
   ggplot(., aes(x=value, fill=type))+
   geom_density(alpha=0.5)+
   xlim(c(0,1))
-p2 = in_vs_out_group_dists(beta$unifracU, filter(meta, AdultChild == "Child"), "Index", list("TimePoint.x != TimePoint.y")) %>%
+p2 = in_vs_out_group_dists(beta$aitch, filter(meta, AdultChild == "Child"), "Index", list("TimePoint.x != TimePoint.y")) %>%
+  ggplot(., aes(x=value, fill=type))+
+  geom_density(alpha=0.5)
+p3 = in_vs_out_group_dists(beta$unifracU, filter(meta, AdultChild == "Child"), "Index", list("TimePoint.x != TimePoint.y")) %>%
   ggplot(., aes(x=value, fill=type))+
   geom_density(alpha=0.5)+
   xlim(c(0,1))
-p3 = in_vs_out_group_dists(beta$unifracW, filter(meta, AdultChild == "Child"), "Index", list("TimePoint.x != TimePoint.y")) %>%
+p4 = in_vs_out_group_dists(beta$unifracW, filter(meta, AdultChild == "Child"), "Index", list("TimePoint.x != TimePoint.y")) %>%
   ggplot(., aes(x=value, fill=type))+
   geom_density(alpha=0.5)+
   xlim(c(0,1))
-plots$beta$hists_individuals_children = ggarrange(p1, p2, p3, nrow = 3, common.legend = T)
+plots$beta$hists_individuals_children = ggarrange(p1, p2, p3, p4, nrow = 4, common.legend = T)
 # As expected, t1 carries no info on t2 for children
 
 ##### BETA DIVERSITY: adonis adults #####
@@ -961,6 +984,7 @@ samples_to_keep = rownames(filter(meta, AdultChild == "Adult"))
 # Adonis data prep
 adonis_data = list()
 adonis_data$bray = prep_for_adonis(beta$bray, meta, samples_to_keep, c("AgeC", "AgeM", "EntColi", "BMI"))
+adonis_data$aitch = prep_for_adonis(beta$aitch, meta, samples_to_keep, c("AgeC", "AgeM", "EntColi", "BMI"))
 adonis_data$unifracU = prep_for_adonis(beta$unifracU, meta, samples_to_keep, c("AgeC", "AgeM", "EntColi", "BMI"))
 adonis_data$unifracW = prep_for_adonis(beta$unifracW, meta, samples_to_keep, c("AgeC", "AgeM", "EntColi", "BMI"))
 
@@ -970,6 +994,10 @@ set.seed(1337)
 # Just location
 adonis2(as.dist(adonis_data$bray[[1]]) ~ Location, 
         data = adonis_data$bray[[2]],
+        by = "terms",
+        permutations = nperms)
+adonis2(as.dist(adonis_data$aitch[[1]]) ~ Location, 
+        data = adonis_data$aitch[[2]],
         by = "terms",
         permutations = nperms)
 adonis2(as.dist(adonis_data$unifracU[[1]]) ~ Location, 
@@ -993,14 +1021,36 @@ plots$beta_ado$adu_bray_loc =
   mutate(Variable = fct_reorder(Variable, R2)) %>%
   mutate(Sig = stars.pval(`Pr(>F)`)) %>%
   ggplot(., aes(x=Variable, y=R2))+
-  geom_bar(stat = "identity") +
-  geom_text(aes(label = Sig, y = R2*1.1), size=6, vjust=0.5, hjust=0) +
-  ylim(c(0, 0.035))+
+  geom_bar(stat = "identity", width=0.8) +
+  geom_text(aes(label = Sig, y = R2*1.1), size=6, vjust=0.7, hjust=0) +
+  # ylim(c(0, 0.035))+
   coord_flip()+
   scale_x_discrete(labels = c("Location"="Environment", "AgeC"="TsincePreg.", "AgeM"="Age"))+
-  labs(x="")+
+  scale_y_continuous(expand=expansion(mult=c(0, 0.15)))+
   ggtitle("Bray-Curtis")+
-  theme(plot.title = element_text(hjust = 0.5))
+  theme(plot.title = element_text(hjust = 0.5),
+        axis.title.y = element_blank())
+
+# Aitchison with location + more variables
+plots$beta_ado$adu_aitch_loc = 
+  adonis2(as.dist(adonis_data$aitch[[1]]) ~ Location+AgeC+AgeM+EntColi+BMI, 
+          data = adonis_data$aitch[[2]],
+          by = "margin",
+          permutations = nperms) %>%
+  slice(1:(n()-2)) %>%
+  arrange(-R2) %>%
+  rownames_to_column(var="Variable") %>%
+  mutate(Variable = fct_reorder(Variable, R2)) %>%
+  mutate(Sig = stars.pval(`Pr(>F)`)) %>%
+  ggplot(., aes(x=Variable, y=R2))+
+  geom_bar(stat = "identity", width=0.8) +
+  geom_text(aes(label = Sig, y = R2*1.1), size=6, vjust=0.7, hjust=0) +
+  coord_flip()+
+  scale_x_discrete(labels = c("Location"="Environment", "AgeC"="TsincePreg.", "AgeM"="Age"))+
+  scale_y_continuous(expand=expansion(mult=c(0, 0.15)))+
+  ggtitle("Aitchison")+
+  theme(plot.title = element_text(hjust = 0.5),
+        axis.title.y = element_blank())
 
 # UniFracU with location + more variables
 plots$beta_ado$adu_uniU_loc =
@@ -1014,14 +1064,14 @@ plots$beta_ado$adu_uniU_loc =
   mutate(Variable = fct_reorder(Variable, R2)) %>%
   mutate(Sig = stars.pval(`Pr(>F)`)) %>%
   ggplot(., aes(x=Variable, y=R2))+
-  geom_bar(stat = "identity") +
-  geom_text(aes(label = Sig, y = R2*1.1), size=6, vjust=0.5, hjust=0) +
-  ylim(c(0, 0.045))+
+  geom_bar(stat = "identity", width=0.8) +
+  geom_text(aes(label = Sig, y = R2*1.1), size=6, vjust=0.7, hjust=0) +
   coord_flip()+
   scale_x_discrete(labels = c("Location"="Environment", "AgeC"="TsincePreg.", "AgeM"="Age"))+
-  labs(x="")+
+  scale_y_continuous(expand=expansion(mult=c(0, 0.15)))+
   ggtitle("UniFracU")+
-  theme(plot.title = element_text(hjust = 0.5))
+  theme(plot.title = element_text(hjust = 0.5),
+        axis.title.y = element_blank())
 
 # UniFracW with location + more variables
 plots$beta_ado$adu_uniW_loc =
@@ -1036,13 +1086,13 @@ plots$beta_ado$adu_uniW_loc =
   mutate(Sig = stars.pval(`Pr(>F)`)) %>%
   ggplot(., aes(x=Variable, y=R2))+
   geom_bar(stat = "identity") +
-  geom_text(aes(label = Sig, y = R2*1.1), size=6, vjust=0.5, hjust=0) +
-  ylim(c(0, 0.045))+
+  geom_text(aes(label = Sig, y = R2*1.1), size=6, vjust=0.7, hjust=0) +
   coord_flip()+
   scale_x_discrete(labels = c("Location"="Environment", "AgeC"="TsincePreg.", "AgeM"="Age"))+
-  labs(x="")+
+  scale_y_continuous(expand=expansion(mult=c(0, 0.15)))+
   ggtitle("UniFracW")+
-  theme(plot.title = element_text(hjust = 0.5))
+  theme(plot.title = element_text(hjust = 0.5),
+        axis.title.y = element_blank())
 
 ##### BETA DIVERSITY: mds adults #####
 
@@ -1051,6 +1101,7 @@ point_size = 1
 ncomps = 2
 mds$adults = list()
 mds$adults$bray = cmdscale(beta$bray[samples_to_keep, samples_to_keep], eig = TRUE, k = ncomps)
+mds$adults$aitch = cmdscale(beta$aitch[samples_to_keep, samples_to_keep], eig = TRUE, k = ncomps)
 mds$adults$unifracU = cmdscale(beta$unifracU[samples_to_keep, samples_to_keep], eig = TRUE, k = ncomps)
 mds$adults$unifracW = cmdscale(beta$unifracW[samples_to_keep, samples_to_keep], eig = TRUE, k = ncomps)
 
@@ -1063,9 +1114,13 @@ for (type in names(mds$adults)) {
   mds_points$adults[[type]] = mds_points$adults[[type]][,-c(1)]
 }
 
-plots$beta$ent_coli_pcoa = ellipse_and_centroid(mds_points$adults$bray, "PC1", "PC2", "EntColi", F, 
+plots$beta$ent_coli_pcoa = ellipse_and_centroid(mds_points$adults$aitch, "PC1", "PC2", "EntColi", F, 
                                                 point_size = point_size, point_alpha = 0.5)+
   scale_color_manual(values=c("#888888", "purple"))
+
+# ellipse_and_centroid(mds_points$adults$aitch, "PC1", "PC2", "EntColi", F, 
+#                      point_size = point_size, point_alpha = 0.5)+
+#   scale_color_manual(values=c("#888888", "purple"))
 
 ##### BETA DIVERSITY: within group similarities #####
 
@@ -1074,10 +1129,11 @@ plots$beta_extra = list()
 # Nicer metric names for plotting
 metric_names = list()
 metric_names$bray = "Bray-Curtis"
+metric_names$aitch = "Aitchison"
 metric_names$unifracU = "UniFracU"
 metric_names$unifracW = "UniFracW"
 
-for (metric in c("bray", "unifracU", "unifracW")) {
+for (metric in c("bray", "aitch", "unifracU", "unifracW")) {
   dists = in_vs_out_group_dists(beta[[metric]], meta, "Location")
   # Are individuals closer to each other in rural as compared to urban?
   p1 = dists %>%
@@ -1115,7 +1171,8 @@ for (metric in c("bray", "unifracU", "unifracW")) {
   dist_comp = my_compare_means(dists2, "value", "Location.x", "TimePoint.x") %>%
     mutate(group1 = interaction("Rural", TimePoint.x))%>%
     mutate(group2 = interaction("Urban", TimePoint.x)) %>%
-    mutate(p.format = formatC(p, 2))
+    mutate(p.format = str_pad(round(p, 3), 5, "right", pad = "0"))
+  dist_comp[dist_comp$p < 0.001, "p.format"] = "< 0.001"
   print(dist_comp)
   
   plots$beta_extra[[paste0("adu_child_dist_", metric)]] = dists2 %>%
@@ -1126,7 +1183,6 @@ for (metric in c("bray", "unifracU", "unifracW")) {
       scale_color_manual(values = cols$adults)+
       scale_fill_manual(values = cols$infants)+
       stat_pvalue_manual(dist_comp, y.position = 1.1*max(dists2$value), size = pval_size, label="p.format")+
-      ggtitle("Adult-infant distances")+
       theme(plot.title = element_text(hjust = 0.5)) +
       ylim(0, 1.2)+
       theme(legend.position="none")+
@@ -1135,6 +1191,10 @@ for (metric in c("bray", "unifracU", "unifracW")) {
         "Rural\nT1", "Urban\nT1",
         "Rural\nT2", "Urban\nT2"))
 }
+
+
+
+# plots$beta_extra$adu_child_dist_aitch+ylim(10, 45)
 
 cat("Rural infants are ahead in 'maturation', is it because they're older?\n")
 meta %>%
@@ -1151,7 +1211,7 @@ meta %>%
 dodge_w = 0.85
 dodge = position_dodge(width = dodge_w)
 
-for (metric in c("bray", "unifracU", "unifracW")) {
+for (metric in c("bray", "aitch", "unifracU", "unifracW")) {
   # Distances between mothers and children at same timepoint
   # Groups if same index
   dists = in_vs_out_group_dists(beta[[metric]], meta, "Index", list(
@@ -1164,22 +1224,26 @@ for (metric in c("bray", "unifracU", "unifracW")) {
     mutate(group2 = "out_group") %>%
     mutate(xmin= c(1-dodge_w/4, 2-dodge_w/4)) %>%
     mutate(xmax= c(1+dodge_w/4, 2+dodge_w/4)) %>%
-    mutate(p.format = formatC(p, 2))
+    mutate(p.format = str_pad(round(p, 3), 5, "right", pad = "0"))
+  dist_comp[dist_comp$p < 0.001, "p.format"] = "< 0.001"
   
   # Are related mother-child pairs more similar than unrelated pairs?
-  plots$beta_extra[[paste0("relatedness_effect_", metric)]] =  
-    ggplot(dists, aes(x=TimePoint, y=value, color=type))+
+  plots$beta_extra[[paste0("relatedness_effect_", metric)]] = dists %>%
+    mutate(TimePoint = paste0("T", TimePoint)) %>%
+    ggplot(., aes(x=TimePoint, y=value, color=type))+
       geom_violin(position=dodge, aes(fill=type), alpha=0.5)+
       geom_boxplot(position=dodge, width = 0.1, outlier.shape = NA)+
       stat_pvalue_manual(dist_comp, y.position = 1.1*max(dists$value), size = pval_size, label="p.format")+
       scale_color_discrete(name = "Relationship", labels = c("Related", "Not related"))+
       scale_fill_discrete(name = "Relationship", labels = c("Related", "Not related"))+
       labs(y=metric_names[[metric]])+
-      ylim(c(0,1.2))
+      ylim(c(0,1.2))+
+      theme(axis.title.x=element_blank())
   
   # Are infants closer to their mothers in rural as compared to urban?
   plots$beta_extra[[paste0("mother_own_child_dists_", metric)]] =
     dists %>%
+    mutate(TimePoint = paste0("T", TimePoint)) %>%
     filter(type == "in_group") %>%
     ggplot(., aes(x=Location.x, y=value))+
       geom_boxplot()+
@@ -1194,6 +1258,7 @@ samples_to_keep = rownames(filter(meta, AdultChild == "Child"))
 
 adonis_data = list()
 adonis_data$bray = prep_for_adonis(beta$bray, meta, samples_to_keep, c("Gender", "AgeC", "AgeM", "FirstMeal", "SinceDivers.", "BMI"))
+adonis_data$aitch = prep_for_adonis(beta$aitch, meta, samples_to_keep, c("Gender", "AgeC", "AgeM", "FirstMeal", "SinceDivers.", "BMI"))
 adonis_data$unifracU = prep_for_adonis(beta$unifracU, meta, samples_to_keep, c("Gender", "AgeC", "AgeM", "FirstMeal", "SinceDivers.", "BMI"))
 adonis_data$unifracW = prep_for_adonis(beta$unifracW, meta, samples_to_keep, c("Gender", "AgeC", "AgeM", "FirstMeal", "SinceDivers.", "BMI"))
 
@@ -1203,6 +1268,10 @@ set.seed(1337)
 # Just location
 adonis2(as.dist(adonis_data$bray[[1]]) ~ Location, 
         data = adonis_data$bray[[2]],
+        by = "terms",
+        permutations = nperms)
+adonis2(as.dist(adonis_data$aitch[[1]]) ~ Location, 
+        data = adonis_data$aitch[[2]],
         by = "terms",
         permutations = nperms)
 adonis2(as.dist(adonis_data$unifracU[[1]]) ~ Location, 
@@ -1226,14 +1295,35 @@ plots$beta_ado$chi_bray_loc =
   mutate(Variable = fct_reorder(Variable, R2)) %>%
   mutate(Sig = stars.pval(`Pr(>F)`)) %>%
   ggplot(., aes(x=Variable, y=R2))+
-  geom_bar(stat = "identity") +
-  geom_text(aes(label = Sig, y = R2*1.1), size=6, vjust=0.5, hjust=0) +
-  ylim(c(0, 0.10))+
+  geom_bar(stat = "identity", width=0.8) +
+  geom_text(aes(label = Sig, y = R2*1.1), size=6, vjust=0.7, hjust=0) +
   coord_flip()+
   scale_x_discrete(labels = c("Location"="Environment", "AgeC" = "Age"))+
-  labs(x="")+
+  scale_y_continuous(expand=expansion(mult=c(0, 0.15)))+
   ggtitle("Bray-Curtis")+
-  theme(plot.title = element_text(hjust = 0.5))
+  theme(plot.title = element_text(hjust = 0.5),
+        axis.title.y = element_blank())
+
+# Aitchison with location + more variables
+plots$beta_ado$chi_aitch_loc = 
+  adonis2(as.dist(adonis_data$aitch[[1]]) ~ Location+AgeC+Gender+BMI, 
+          data = adonis_data$aitch[[2]],
+          by = "margin",
+          permutations = nperms) %>%
+  slice(1:(n()-2)) %>%
+  arrange(-R2) %>%
+  rownames_to_column(var="Variable") %>%
+  mutate(Variable = fct_reorder(Variable, R2)) %>%
+  mutate(Sig = stars.pval(`Pr(>F)`)) %>%
+  ggplot(., aes(x=Variable, y=R2))+
+  geom_bar(stat = "identity", width=0.7) +
+  geom_text(aes(label = Sig, y = R2*1.1), size=6, vjust=0.7, hjust=0) +
+  coord_flip()+
+  scale_x_discrete(labels = c("Location"="Environment", "AgeC" = "Age"))+
+  scale_y_continuous(expand=expansion(mult=c(0, 0.15)))+
+  ggtitle("Aitchison")+
+  theme(plot.title = element_text(hjust = 0.5),
+        axis.title.y = element_blank())
 
 # UniFracU with location + more variables
 plots$beta_ado$chi_uniU_loc =
@@ -1247,14 +1337,14 @@ plots$beta_ado$chi_uniU_loc =
   mutate(Variable = fct_reorder(Variable, R2)) %>%
   mutate(Sig = stars.pval(`Pr(>F)`)) %>%
   ggplot(., aes(x=Variable, y=R2))+
-  geom_bar(stat = "identity") +
-  geom_text(aes(label = Sig, y = R2*1.1), size=6, vjust=0.5, hjust=0) +
-  ylim(c(0, 0.16))+
+  geom_bar(stat = "identity", width=0.8) +
+  geom_text(aes(label = Sig, y = R2*1.1), size=6, vjust=0.7, hjust=0) +
   coord_flip()+
   scale_x_discrete(labels = c("Location"="Environment", "AgeC" = "Age"))+
-  labs(x="")+
+  scale_y_continuous(expand=expansion(mult=c(0, 0.15)))+
   ggtitle("UniFracU")+
-  theme(plot.title = element_text(hjust = 0.5))
+  theme(plot.title = element_text(hjust = 0.5),
+        axis.title.y = element_blank())
 
 # UniFracW with location + more variables
 plots$beta_ado$chi_uniW_loc =
@@ -1268,14 +1358,14 @@ plots$beta_ado$chi_uniW_loc =
   mutate(Variable = fct_reorder(Variable, R2)) %>%
   mutate(Sig = stars.pval(`Pr(>F)`)) %>%
   ggplot(., aes(x=Variable, y=R2))+
-  geom_bar(stat = "identity") +
-  geom_text(aes(label = Sig, y = R2*1.1), size=6, vjust=0.5, hjust=0) +
-  ylim(c(0, 0.16))+
+  geom_bar(stat = "identity", width=0.7) +
+  geom_text(aes(label = Sig, y = R2*1.1), size=6, vjust=0.7, hjust=0) +
   coord_flip()+
   scale_x_discrete(labels = c("Location"="Environment", "AgeC" = "Age"))+
-  labs(x="")+
+  scale_y_continuous(expand=expansion(mult=c(0, 0.15)))+
   ggtitle("UniFracW")+
-  theme(plot.title = element_text(hjust = 0.5))
+  theme(plot.title = element_text(hjust = 0.5),
+        axis.title.y = element_blank())
 
 ##### BETA DIVERSITY: adonis infants T2 only #####
 
@@ -1283,6 +1373,7 @@ samples_to_keep = rownames(filter(meta, Group4 == "Child.2"))
 
 adonis_data = list()
 adonis_data$bray = prep_for_adonis(beta$bray, meta, samples_to_keep, c("Gender", "AgeC", "AgeM", "FirstMeal", "SinceDivers.", "BMI", "IngredN"))
+adonis_data$aitch = prep_for_adonis(beta$aitch, meta, samples_to_keep, c("Gender", "AgeC", "AgeM", "FirstMeal", "SinceDivers.", "BMI", "IngredN"))
 adonis_data$unifracU = prep_for_adonis(beta$unifracU, meta, samples_to_keep, c("Gender", "AgeC", "AgeM", "FirstMeal", "SinceDivers.", "BMI", "IngredN"))
 adonis_data$unifracW = prep_for_adonis(beta$unifracW, meta, samples_to_keep, c("Gender", "AgeC", "AgeM", "FirstMeal", "SinceDivers.", "BMI", "IngredN"))
 
@@ -1292,6 +1383,10 @@ set.seed(1337)
 # Just location
 adonis2(as.dist(adonis_data$bray[[1]]) ~ Location, 
         data = adonis_data$bray[[2]],
+        by = "terms",
+        permutations = nperms)
+adonis2(as.dist(adonis_data$aitch[[1]]) ~ Location, 
+        data = adonis_data$aitch[[2]],
         by = "terms",
         permutations = nperms)
 adonis2(as.dist(adonis_data$unifracU[[1]]) ~ Location, 
@@ -1307,6 +1402,27 @@ adonis2(as.dist(adonis_data$unifracW[[1]]) ~ Location,
 plots$beta_ado$chi2_bray_loc =
   adonis2(as.dist(adonis_data$bray[[1]]) ~ Location+AgeC+Gender+BMI+SharingMealAvg+IngredN,
           data = adonis_data$bray[[2]],
+          by = "margin",
+          permutations = nperms) %>%
+  slice(1:(n()-2)) %>%
+  arrange(-R2) %>%
+  rownames_to_column(var="Variable") %>%
+  mutate(Variable = fct_reorder(Variable, R2)) %>%
+  mutate(Sig = stars.pval(`Pr(>F)`)) %>%
+  ggplot(., aes(x=Variable, y=R2))+
+  geom_bar(stat = "identity") +
+  geom_text(aes(label = Sig, y = R2*1.1), size=6, vjust=0.5, hjust=0) +
+  ylim(c(0, 0.14))+
+  coord_flip()+
+  scale_x_discrete(labels = c("SubLocation"="Area"))+
+  labs(x="")+
+  ggtitle("Bray-Curtis")+
+  theme(plot.title = element_text(hjust = 0.5))
+
+# Bray-Curtis with Location
+plots$beta_ado$chi2_aitch_loc =
+  adonis2(as.dist(adonis_data$aitch[[1]]) ~ Location+AgeC+Gender+BMI+SharingMealAvg+IngredN,
+          data = adonis_data$aitch[[2]],
           by = "margin",
           permutations = nperms) %>%
   slice(1:(n()-2)) %>%
@@ -1371,10 +1487,11 @@ plots$beta_ado$chi2_uniW_loc =
 point_size = 1
 
 mds$all$bray = cmdscale(beta$bray, eig = TRUE, k = ncomps)
+mds$all$aitch = cmdscale(beta$aitch, eig = TRUE, k = ncomps)
 mds$all$unifracU = cmdscale(beta$unifracU, eig = TRUE, k = ncomps)
 mds$all$unifracW = cmdscale(beta$unifracW, eig = TRUE, k = ncomps)
 
-for (type in c("bray", "unifracU", "unifracW")) {
+for (type in c("bray", "aitch", "unifracU", "unifracW")) {
   mds_points$all[[type]] = as.data.frame(mds$all[[type]]$points)
   colnames(mds_points$all[[type]]) = paste0("PC", 1:ncol(mds_points$all[[type]]))
   mds_points$all[[type]] = merge(mds_points$all[[type]], meta, by = 0)
@@ -1384,6 +1501,10 @@ for (type in c("bray", "unifracU", "unifracW")) {
 
 # Bray
 ggplot(mds_points$all$bray, aes(x=PC1, y=PC2, color=Group4))+
+  geom_point(size=point_size)+
+  stat_ellipse(level = 0.68)
+# Aitchison
+ggplot(mds_points$all$aitch, aes(x=PC1, y=PC2, color=Group4))+
   geom_point(size=point_size)+
   stat_ellipse(level = 0.68)
 # UnifracU
@@ -1402,12 +1523,20 @@ plots$beta$adu_chi_pcoa = ellipse_and_centroid(mds_points$all$bray, "PC1", "PC2"
                      name=NULL)+
   theme(legend.position = "left")
 
+# ellipse_and_centroid(mds_points$all$aitch, "PC1", "PC2", "Group4", F, 
+#                                                point_size = point_size, point_alpha = 0.5)+
+#   scale_color_manual(values=cols$times,
+#                      labels=c("Mothers T1", "Infants T1", "Mothers T2", "Infants T2"),
+#                      name=NULL)+
+#   theme(legend.position = "left")
+
 # Infants only MDS
 
 samples_to_keep = rownames(filter(meta, AdultChild == "Child"))
 
 mds$infants = list()
 mds$infants$bray = cmdscale(beta$bray[samples_to_keep, samples_to_keep], eig = TRUE, k = ncomps)
+mds$infants$aitch = cmdscale(beta$aitch[samples_to_keep, samples_to_keep], eig = TRUE, k = ncomps)
 mds$infants$unifracU = cmdscale(beta$unifracU[samples_to_keep, samples_to_keep], eig = TRUE, k = ncomps)
 mds$infants$unifracW = cmdscale(beta$unifracW[samples_to_keep, samples_to_keep], eig = TRUE, k = ncomps)
 
@@ -1422,6 +1551,12 @@ for (type in names(mds$infants )) {
 
 plots$beta$chi_pcoa = ellipse_and_centroid(mds_points$infants$bray, "PC1", "PC2", "Group3", F, 
                                            point_size = point_size, point_alpha = 0.5)+
+  scale_color_manual(values=cols$infants, 
+                     labels=c("Rural\ninfants T1", "Urban\ninfants T1", "Rural\ninfants T2", "Urban\ninfants T2"),
+                     name=NULL)
+
+ellipse_and_centroid(mds_points$infants$aitch, "PC1", "PC2", "Group3", F, 
+                     point_size = point_size, point_alpha = 0.5)+
   scale_color_manual(values=cols$infants, 
                      labels=c("Rural\ninfants T1", "Urban\ninfants T1", "Rural\ninfants T2", "Urban\ninfants T2"),
                      name=NULL)
@@ -1455,7 +1590,7 @@ nonzeros_per_group = ab$gen %>%
 rownames(nonzeros_per_group) = nonzeros_per_group$Group3
 nonzeros_per_group = nonzeros_per_group[,-c(1)]
 
-taxa$gen_less_sparse = taxa$gen_defined[colnames(nonzeros_per_group)[which(colSums(nonzeros_per_group > 5) > 0)], ]
+taxa$gen_less_sparse = taxa$gen_defined[colnames(nonzeros_per_group)[which(colSums(nonzeros_per_group >= 5) > 0)], ]
 ab$gen_less_sparse = ab$gen[, rownames(taxa$gen_less_sparse)]
 
 plots$extra$sparsity_kept_counts =  data.frame("X1" = rowSums(ab$gen_less_sparse) / rowSums(ab$gen)) %>%
@@ -1539,6 +1674,40 @@ plots$maaslin$infants =
   labs(x=NULL, y=NULL)+
   scale_y_discrete(labels = c("AgeC" = "Age", "UrbanAgeC" = "Urban*Age"))
 
+##### DIFFERENTIAL ABUNDANCE: all genera for supplementary #####
+
+ab_mothers = ab$gen %>%
+  dplyr::select(rownames(taxa$gen_defined)) %>%
+  dplyr::filter(rownames(.) %in% rownames(subset(meta, AdultChild == "Adult")))
+colnames(ab_mothers) = str_replace_all(taxa$gen_defined[colnames(ab_mothers), "Genus"], "g__", "")
+meta$Index = as.factor(meta$Index)
+
+maaslin_mothers = Maaslin2(ab_mothers, meta, paste0(outpath, "/maaslin/mothers_all"),
+                           fixed_effects = c("Location", "AgeC", "EntColi"),
+                           random_effects = c("Index", "TimePoint"),
+                           max_significance = 0.1,
+                           min_prevalence = 0,
+                           analysis_method = "LM",  # Default: LM
+                           normalization = "TSS",   # Default: TSS
+                           transform = "LOG", # Default: LOG
+                           plot_scatter = F)      
+
+ab_infants = ab$gen %>%
+  dplyr::select(rownames(taxa$gen_defined)) %>%
+  filter(rownames(.) %in% rownames(subset(meta, AdultChild == "Child")))
+colnames(ab_infants) = str_replace_all(taxa$gen_defined[colnames(ab_infants), "Genus"], "g__", "")
+meta["UrbanAgeC"] = (meta$Location == "Urban") * meta$AgeC
+
+maaslin_infants = Maaslin2(ab_infants, meta, paste0(outpath, "/maaslin/infants_all"),
+                           fixed_effects = c("Location", "AgeC", "UrbanAgeC"),
+                           random_effects = c("Index", "TimePoint"),
+                           max_significance = 0.1,
+                           min_prevalence = 0,
+                           analysis_method = "LM",  # Default: LM
+                           normalization = "TSS",   # Default: TSS
+                           transform = "LOG", # Default: LOG
+                           plot_scatter = F)   
+
 ##### PLOTTING #####
 
 w = 174 # mm
@@ -1557,6 +1726,10 @@ ggsave(paste0(outpath, "/figS1.pdf"), plot=figS1,
 # Figure 1 phylum plots
 ggsave(paste0(outpath, "/fig1.pdf"), plot = plots$phy_barplots$combined, 
        width = w, height = h*0.35, units = "mm", dpi = 300)
+
+# Alpha div metric comparison
+ggsave(paste0(outpath, "/extras/alpha_div_metric_comparison.pdf"), plot=plots$alpha$metric_comp,
+       width = w, height = 0.8*h, units = "mm", dpi = 300)
 
 # All alpha div metrics, comparing environment
 figS2 = ggarrange(plotlist = plots$alpha[c(
@@ -1593,11 +1766,16 @@ ggsave(paste0(outpath, "/extras/beta_grouping_hists.pdf"), plot = beta_grouping_
        width = w*1.5, height = h, units = "mm", dpi = 300)
 
 # All adonis barplots
-figS3 = ggarrange(plots$beta_ado$adu_bray_loc, plots$beta_ado$adu_uniU_loc, plots$beta_ado$adu_uniW_loc, 
-                  plots$beta_ado$chi_bray_loc, plots$beta_ado$chi_uniU_loc, plots$beta_ado$chi_uniW_loc, 
-                  ncol=3, nrow=2, labels = "AUTO")
+# figS3 = ggarrange(plots$beta_ado$adu_bray_loc, plots$beta_ado$adu_uniU_loc, plots$beta_ado$adu_uniW_loc, 
+#                   plots$beta_ado$chi_bray_loc, plots$beta_ado$chi_uniU_loc, plots$beta_ado$chi_uniW_loc, 
+#                   ncol=3, nrow=2, labels = "AUTO")
+figS3 = ggarrange(plots$beta_ado$adu_bray_loc, plots$beta_ado$chi_bray_loc, 
+                  plots$beta_ado$adu_aitch_loc, plots$beta_ado$chi_aitch_loc, 
+                  plots$beta_ado$adu_uniU_loc, plots$beta_ado$chi_uniU_loc, 
+                  plots$beta_ado$adu_uniW_loc, plots$beta_ado$chi_uniW_loc, 
+                  ncol=2, nrow=4, labels = "AUTO")
 ggsave(paste0(outpath, "/figS3.pdf"), plot = figS3,
-       width = w, height = h*0.4, units = "mm", dpi = 300)
+       width = 0.9*w, height = h*0.6, units = "mm", dpi = 300)
 
 
 in_group_plots = ggarrange(plots$beta_extra$in_group_bray, plots$beta_extra$in_group_unifracU, plots$beta_extra$in_group_unifracW,
@@ -1606,45 +1784,48 @@ ggsave(paste0(outpath, "/extras/in_group_plots.pdf"), plot = in_group_plots,
        width = w, height = h*0.8, units = "mm", dpi = 300)
 
 # Mother-Child distance violin plots
-figS4 = 
-  (plots$beta_extra$adu_child_dist_bray | plots$beta_extra$relatedness_effect_bray) /
+p1 = plots$beta_extra$adu_child_dist_bray + ggtitle("Adult-infant distances vs environment")
+p2 = plots$beta_extra$relatedness_effect_bray + ggtitle("Adult-infant distances vs relatedness")
+figS4 = (p1 | p2) /
+  (plots$beta_extra$adu_child_dist_aitch+ylim(10,45) | plots$beta_extra$relatedness_effect_aitch+ylim(10,45)) /
   (plots$beta_extra$adu_child_dist_unifracU | plots$beta_extra$relatedness_effect_unifracU) /
   (plots$beta_extra$adu_child_dist_unifracW |plots$beta_extra$relatedness_effect_unifracW) +
-  plot_annotation(tag_levels = 'A') & theme(plot.tag = element_text(face = "bold", size=14))
+  plot_annotation(tag_levels = 'A') + plot_layout(guides = "collect")& 
+  theme(plot.tag = element_text(face = "bold", size=14),
+        plot.margin = margin(0, 10, 0, 0, "pt"))
 ggsave(paste0(outpath, "/figS4.pdf"), plot = figS4,
        width = w, height = h*0.8, units = "mm", dpi = 300)
 
-com_offsetX = -5
-com_offsetY = 0
 # Main figure mothers
-alignedT = align_plots(plots$alpha$adults_chao, plots$beta_ado$adu_bray_loc, align = "h", axis = "t")
+alignedT = align_plots(plots$alpha$adults_chao, 
+                       (plots$beta_ado$adu_aitch_loc+scale_y_continuous(expand = expansion(mult=c(0, 0.2)))), 
+                       align = "h", axis = "t")
 alignedB = align_plots(plots$alpha_reg$ent_coli, plots$beta$ent_coli_pcoa, align = "h", axis = "b")
 alignedL = align_plots(alignedT[[1]], plots$alpha_reg$time_since_preg, alignedB[[1]], plots$maaslin$adults, 
                        align = "v", axis = "l")
 alignedR = align_plots(alignedT[[2]], alignedB[[2]], alignedL[[4]], 
                        align = "v", axis = "r")
 left = plot_grid(plotlist = alignedL[1:3], nrow=3, align="v", axis="lr", rel_heights = c(1.4,1,1.2), 
-                 labels = c("A", "B", "C"), hjust = com_offsetX-4, vjust = com_offsetY+c(1.5,0,0))
-right = plot_grid(plotlist = alignedR[1:2], nrow=2, align="v", axis="lr", labels= c("D", "E"),
-                  hjust = com_offsetX, vjust = com_offsetY+c(1.5,0))
+                 labels = c("A", "B", "C"))
+right = plot_grid(plotlist = alignedR[1:2], nrow=2, align="v", axis="lr", labels= c("D", "E"))
 top = plot_grid(left, right, ncol=2)
-full = plot_grid(top, alignedR[[3]], nrow = 2, rel_heights = c(1.9, 1), labels=c("", "F"),
-                 hjust = com_offsetX-6, vjust = com_offsetY)
+full = plot_grid(top, alignedR[[3]], nrow = 2, rel_heights = c(1.9, 1), labels=c("", "F"))
 ggsave(paste0(outpath, "/fig2.pdf"), plot = full, 
        height = 0.8*h, width = w, units="mm", dpi = 300)
 
 # Main figure infants
-alignedT = align_plots(plots$alpha$infants_chao, plots$beta_ado$chi_bray_loc, align = "h", axis = "tb")
-alignedB = align_plots(plots$beta$adu_chi_pcoa, plots$beta$chi_pcoa, align = "h", axis = "b")
+tmp = plots$beta_extra$adu_child_dist_unifracW + 
+  ggtitle("Adult-infant distances")+
+  ylim(0, 1.1)
+alignedT = align_plots(plots$alpha$infants_chao, plots$beta_ado$chi_aitch_loc, align = "h", axis = "tb")
+alignedB = align_plots(plots$beta$adu_chi_pcoa, tmp, align = "h", axis = "b")
 alignedL = align_plots(alignedT[[1]], alignedB[[1]], plots$maaslin$infants, align = "v", axis = "l")
 alignedR = align_plots(alignedT[[2]], alignedB[[2]], alignedL[[3]], align = "v", axis = "r")
 left = plot_grid(plotlist = alignedL[1:2], nrow=2, align="v", axis="lr", rel_heights = c(1,1), 
-                 labels = c("A", "C"), hjust = com_offsetX-4, vjust = com_offsetY+c(1.5,0))
-right = plot_grid(plotlist = alignedR[1:2], nrow=2, align="v", axis="lr", labels= c("B", "D"),
-                  hjust = com_offsetX, vjust = com_offsetY+c(1.5,0))
-top = plot_grid(left, right, ncol=2)
-size_legend = get_legend(plots$maaslin$infants+guides(fill="none"))
-full = plot_grid(top, alignedR[[3]], nrow = 2, rel_heights = c(1.5, 1), labels=c("", "E"),
-                 hjust = com_offsetX-6, vjust = com_offsetY)
+                 labels = c("A", "C"))
+right = plot_grid(plotlist = alignedR[1:2], nrow=2, align="v", axis="lr", labels= c("B", "D"))
+top = plot_grid(left, right, ncol=2, rel_widths = c(1.3, 1))
+full = plot_grid(top, alignedR[[3]], nrow = 2, rel_heights = c(1.5, 1), labels=c("", "E"))
 ggsave(paste0(outpath, "/fig3.pdf"), plot = full, 
        height = 0.8*h, width = w, units="mm", dpi = 300)
+

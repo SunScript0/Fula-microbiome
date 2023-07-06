@@ -1,0 +1,301 @@
+2023-07-06 09:19:23 INFO::Writing function arguments to log file
+2023-07-06 09:19:23 DEBUG::Function arguments
+2023-07-06 09:19:23 DEBUG::Output folder: ./04_analysis_output//outputs_2023-07-06_09-16-11/maaslin/mothers_all
+2023-07-06 09:19:23 DEBUG::Min Abundance: 0.000000
+2023-07-06 09:19:23 DEBUG::Min Prevalence: 0.000000
+2023-07-06 09:19:23 DEBUG::Normalization: TSS
+2023-07-06 09:19:23 DEBUG::Transform: LOG
+2023-07-06 09:19:23 DEBUG::Analysis method: LM
+2023-07-06 09:19:23 DEBUG::Max significance: 0.100000
+2023-07-06 09:19:23 DEBUG::Random effects: Index,TimePoint
+2023-07-06 09:19:23 DEBUG::Fixed effects: Location,AgeC,EntColi
+2023-07-06 09:19:23 DEBUG::Correction method: BH
+2023-07-06 09:19:23 DEBUG::Standardize: TRUE
+2023-07-06 09:19:23 DEBUG::Cores: 1
+2023-07-06 09:19:23 INFO::Verifying options selected are valid
+2023-07-06 09:19:23 INFO::Determining format of input files
+2023-07-06 09:19:24 INFO::Input format is data samples as rows and metadata samples as rows
+2023-07-06 09:19:24 DEBUG::The following samples were found to have metadata but no features. They will be removed. su01c1,su02c1,su03c1,su04c1,su05c1,su06c1,su07c1,su08c1,su09c1,su10c1,su12c1,su14c1,su15c1,su16c1,su18c1,su19c1,su21c1,su22c1,su23c1,su24c1,su25c1,su26c1,su29c1,su30c1,sr31c1,sr32c1,sr33c1,sr34c1,sr35c1,sr36c1,sr37c1,sr39c1,sr40c1,sr41c1,sr42c1,sr43c1,sr45c1,sr46c1,sr48c1,sr50c1,sr51c1,sr52c1,sr53c1,sr55c1,sr56c1,sr57c1,sr58c1,su01c2,su02c2,su03c2,su04c2,su05c2,su06c2,su07c2,su08c2,su10c2,su11c2,su12c2,su13c2,su15c2,su16c2,su17c2,su18c2,su19c2,su20c2,su21c2,su23c2,su24c2,su25c2,su26c2,su27c2,su28c2,su29c2,su30c2,sr31c2,sr32c2,sr33c2,sr34c2,sr35c2,sr36c2,sr37c2,sr38c2,sr39c2,sr40c2,sr41c2,sr42c2,sr43c2,sr45c2,sr46c2,sr48c2,sr49c2,sr50c2,sr51c2,sr52c2,sr53c2,sr54c2,sr55c2,sr56c2,sr57c2,sr58c2,sr60c2
+2023-07-06 09:19:24 DEBUG::A total of 114 samples were found in both the data and metadata
+2023-07-06 09:19:24 DEBUG::Reordering data/metadata to use same sample ordering
+2023-07-06 09:19:24 INFO::Formula for random effects: expr ~ (1 | Index) + (1 | TimePoint)
+2023-07-06 09:19:24 INFO::Formula for fixed effects: expr ~  Location + AgeC + EntColi
+2023-07-06 09:19:24 INFO::Filter data based on min abundance and min prevalence
+2023-07-06 09:19:24 INFO::Total samples in data: 114
+2023-07-06 09:19:24 INFO::Min samples required with min abundance for a feature not to be filtered: 0.000000
+2023-07-06 09:19:24 INFO::Total filtered features: 50
+2023-07-06 09:19:24 INFO::Filtered feature names from abundance and prevalence filtering: Arcanobacterium, Brachybacterium, Piscicoccus, Kocuria, Nesterenkonia, Propioniciclava, Solirubrobacter, Phocaeicola, Pontibacter, Dyadobacter, Empedobacter, Lawsonia, Tumebacillus, Chryseomicrobium, Domibacillus, Kurthia, Sporosarcina, Erysipelatoclostridium, X.Clostridium._innocuum_group, Faecalicoccus, Dolosigranulum, Ammoniphilus, Staphylococcus, Clostridium_sensu_stricto_18, Clostridium_sensu_stricto_2, Lachnospiraceae_FE2018_group, Robinsoniella, Stomatobaculum, DTU089, Gallicola, Megamonas, Anaeroglobus, Negativicoccus, Veillonellaceae, Leptotrichia, Phaselicystis, Sorangium, Saccharimonadales, Gluconobacter, Bosea, Devosia, Lautropia, Vogesella, Acidovorax, Massilia, Azonexus, Citrobacter, Pseudohongiella, Steroidobacter, Synergistes
+2023-07-06 09:19:24 INFO::Running selected normalization method: TSS
+2023-07-06 09:19:24 INFO::Total filtered features with variance filtering: 0
+2023-07-06 09:19:24 INFO::Filtered feature names from variance filtering:
+2023-07-06 09:19:24 INFO::Applying z-score to standardize continuous metadata
+2023-07-06 09:19:24 INFO::Running selected transform method: LOG
+2023-07-06 09:19:24 INFO::Running selected analysis method: LM
+2023-07-06 09:19:24 INFO::Fitting model to feature number 1, Methanobrevibacter
+2023-07-06 09:19:24 INFO::Fitting model to feature number 2, Actinomyces
+2023-07-06 09:19:24 INFO::Fitting model to feature number 3, F0332
+2023-07-06 09:19:24 INFO::Fitting model to feature number 4, Mobiluncus
+2023-07-06 09:19:24 INFO::Fitting model to feature number 5, Varibaculum
+2023-07-06 09:19:24 INFO::Fitting model to feature number 6, Alloscardovia
+2023-07-06 09:19:24 INFO::Fitting model to feature number 7, Bifidobacterium
+2023-07-06 09:19:24 INFO::Fitting model to feature number 8, Gardnerella
+2023-07-06 09:19:24 INFO::Fitting model to feature number 9, Scardovia
+2023-07-06 09:19:25 INFO::Fitting model to feature number 10, Corynebacterium
+2023-07-06 09:19:25 INFO::Fitting model to feature number 11, Dietzia
+2023-07-06 09:19:25 INFO::Fitting model to feature number 12, Mycobacterium
+2023-07-06 09:19:25 INFO::Fitting model to feature number 13, Rhodococcus
+2023-07-06 09:19:25 INFO::Fitting model to feature number 14, Rothia
+2023-07-06 09:19:25 INFO::Fitting model to feature number 15, PeM15
+2023-07-06 09:19:25 INFO::Fitting model to feature number 16, Cutibacterium
+2023-07-06 09:19:25 INFO::Fitting model to feature number 17, Pseudopropionibacterium
+2023-07-06 09:19:25 INFO::Fitting model to feature number 18, Atopobium
+2023-07-06 09:19:25 INFO::Fitting model to feature number 19, Coriobacteriaceae_UCG.003
+2023-07-06 09:19:26 INFO::Fitting model to feature number 20, Libanicoccus
+2023-07-06 09:19:26 INFO::Fitting model to feature number 21, Olsenella
+2023-07-06 09:19:26 INFO::Fitting model to feature number 22, Collinsella
+2023-07-06 09:19:26 INFO::Fitting model to feature number 23, Raoultibacter
+2023-07-06 09:19:26 INFO::Fitting model to feature number 24, Eggerthella
+2023-07-06 09:19:26 INFO::Fitting model to feature number 25, Enterorhabdus
+2023-07-06 09:19:26 INFO::Fitting model to feature number 26, Senegalimassilia
+2023-07-06 09:19:26 INFO::Fitting model to feature number 27, Slackia
+2023-07-06 09:19:26 INFO::Fitting model to feature number 28, Bacteroides
+2023-07-06 09:19:26 INFO::Fitting model to feature number 29, Butyricimonas
+2023-07-06 09:19:26 INFO::Fitting model to feature number 30, CAG.873
+2023-07-06 09:19:26 INFO::Fitting model to feature number 31, Muribaculaceae
+2023-07-06 09:19:27 INFO::Fitting model to feature number 32, Porphyromonas
+2023-07-06 09:19:27 INFO::Fitting model to feature number 33, Prevotella
+2023-07-06 09:19:27 INFO::Fitting model to feature number 34, Prevotellaceae_UCG.003
+2023-07-06 09:19:27 INFO::Fitting model to feature number 35, Alistipes
+2023-07-06 09:19:27 INFO::Fitting model to feature number 36, Rikenellaceae_RC9_gut_group
+2023-07-06 09:19:27 INFO::Fitting model to feature number 37, Parabacteroides
+2023-07-06 09:19:27 INFO::Fitting model to feature number 38, Dinghuibacter
+2023-07-06 09:19:27 INFO::Fitting model to feature number 39, Edaphobaculum
+2023-07-06 09:19:27 INFO::Fitting model to feature number 40, Parasegetibacter
+2023-07-06 09:19:27 INFO::Fitting model to feature number 41, Fluviicola
+2023-07-06 09:19:27 INFO::Fitting model to feature number 42, Chryseobacterium
+2023-07-06 09:19:27 INFO::Fitting model to feature number 43, AKYH767
+2023-07-06 09:19:27 INFO::Fitting model to feature number 44, NS11.12_marine_group
+2023-07-06 09:19:28 INFO::Fitting model to feature number 45, Pedobacter
+2023-07-06 09:19:28 INFO::Fitting model to feature number 46, Campylobacter
+2023-07-06 09:19:28 INFO::Fitting model to feature number 47, Helicobacter
+2023-07-06 09:19:28 INFO::Fitting model to feature number 48, Gastranaerophilales
+2023-07-06 09:19:28 INFO::Fitting model to feature number 49, Bilophila
+2023-07-06 09:19:28 INFO::Fitting model to feature number 50, Desulfovibrio
+2023-07-06 09:19:28 INFO::Fitting model to feature number 51, Elusimicrobium
+2023-07-06 09:19:28 INFO::Fitting model to feature number 52, Anaeroplasma
+2023-07-06 09:19:28 INFO::Fitting model to feature number 53, Bacillus
+2023-07-06 09:19:28 INFO::Fitting model to feature number 54, Ureibacillus
+2023-07-06 09:19:28 INFO::Fitting model to feature number 55, Lysinibacillus
+2023-07-06 09:19:28 INFO::Fitting model to feature number 56, Solibacillus
+2023-07-06 09:19:29 INFO::Fitting model to feature number 57, Asteroleplasma
+2023-07-06 09:19:29 INFO::Fitting model to feature number 58, Catenibacterium
+2023-07-06 09:19:29 INFO::Fitting model to feature number 59, Erysipelotrichaceae_UCG.003
+2023-07-06 09:19:29 INFO::Fitting model to feature number 60, UCG.004
+2023-07-06 09:19:29 INFO::Fitting model to feature number 61, Erysipelotrichaceae_UCG.006
+2023-07-06 09:19:29 INFO::Fitting model to feature number 62, Faecalitalea
+2023-07-06 09:19:29 INFO::Fitting model to feature number 63, Holdemanella
+2023-07-06 09:19:29 INFO::Fitting model to feature number 64, Solobacterium
+2023-07-06 09:19:29 INFO::Fitting model to feature number 65, Turicibacter
+2023-07-06 09:19:29 INFO::Fitting model to feature number 66, Exiguobacterium
+2023-07-06 09:19:29 INFO::Fitting model to feature number 67, Izemoplasmatales
+2023-07-06 09:19:29 INFO::Fitting model to feature number 68, Abiotrophia
+2023-07-06 09:19:29 INFO::Fitting model to feature number 69, Carnobacterium
+2023-07-06 09:19:30 INFO::Fitting model to feature number 70, Trichococcus
+2023-07-06 09:19:30 INFO::Fitting model to feature number 71, Enterococcus
+2023-07-06 09:19:30 INFO::Fitting model to feature number 72, Lactobacillus
+2023-07-06 09:19:30 INFO::Fitting model to feature number 73, Weissella
+2023-07-06 09:19:30 INFO::Fitting model to feature number 74, Brochothrix
+2023-07-06 09:19:30 INFO::Fitting model to feature number 75, Lactococcus
+2023-07-06 09:19:30 INFO::Fitting model to feature number 76, Streptococcus
+2023-07-06 09:19:30 INFO::Fitting model to feature number 77, Vagococcus
+2023-07-06 09:19:30 INFO::Fitting model to feature number 78, RF39
+2023-07-06 09:19:30 INFO::Fitting model to feature number 79, Gemella
+2023-07-06 09:19:30 INFO::Fitting model to feature number 80, Caldicoprobacter
+2023-07-06 09:19:30 INFO::Fitting model to feature number 81, Catabacter
+2023-07-06 09:19:31 INFO::Fitting model to feature number 82, Christensenella
+2023-07-06 09:19:31 INFO::Fitting model to feature number 83, Christensenellaceae_R.7_group
+2023-07-06 09:19:31 INFO::Fitting model to feature number 84, Clostridia_UCG.014
+2023-07-06 09:19:31 INFO::Fitting model to feature number 85, Clostridia_vadinBB60_group
+2023-07-06 09:19:31 INFO::Fitting model to feature number 86, Fastidiosipila
+2023-07-06 09:19:31 INFO::Fitting model to feature number 87, Ruminiclostridium
+2023-07-06 09:19:31 INFO::Fitting model to feature number 88, Clostridium_sensu_stricto_1
+2023-07-06 09:19:31 INFO::Fitting model to feature number 89, Clostridium_sensu_stricto_6
+2023-07-06 09:19:31 INFO::Fitting model to feature number 90, Sarcina
+2023-07-06 09:19:31 INFO::Fitting model to feature number 91, Anaerofustis
+2023-07-06 09:19:32 INFO::Fitting model to feature number 92, Eubacterium
+2023-07-06 09:19:32 INFO::Fitting model to feature number 93, Defluviitaleaceae_UCG.011
+2023-07-06 09:19:32 INFO::Fitting model to feature number 94, X.Bacteroides._pectinophilus_group
+2023-07-06 09:19:32 INFO::Fitting model to feature number 95, X.Eubacterium._eligens_group
+2023-07-06 09:19:32 INFO::Fitting model to feature number 96, X.Eubacterium._fissicatena_group
+2023-07-06 09:19:32 INFO::Fitting model to feature number 97, X.Eubacterium._hallii_group
+2023-07-06 09:19:32 INFO::Fitting model to feature number 98, X.Eubacterium._ruminantium_group
+2023-07-06 09:19:32 INFO::Fitting model to feature number 99, X.Eubacterium._ventriosum_group
+2023-07-06 09:19:32 INFO::Fitting model to feature number 100, X.Eubacterium._xylanophilum_group
+2023-07-06 09:19:32 INFO::Fitting model to feature number 101, X.Ruminococcus._gauvreauii_group
+2023-07-06 09:19:32 INFO::Fitting model to feature number 102, X.Ruminococcus._gnavus_group
+2023-07-06 09:19:32 INFO::Fitting model to feature number 103, X.Ruminococcus._torques_group
+2023-07-06 09:19:32 INFO::Fitting model to feature number 104, Agathobacter
+2023-07-06 09:19:33 INFO::Fitting model to feature number 105, Anaerostignum
+2023-07-06 09:19:33 INFO::Fitting model to feature number 106, Anaerostipes
+2023-07-06 09:19:33 INFO::Fitting model to feature number 107, Blautia
+2023-07-06 09:19:33 INFO::Fitting model to feature number 108, Butyrivibrio
+2023-07-06 09:19:33 INFO::Fitting model to feature number 109, CAG.56
+2023-07-06 09:19:33 INFO::Fitting model to feature number 110, Cellulosilyticum
+2023-07-06 09:19:33 INFO::Fitting model to feature number 111, Coprococcus
+2023-07-06 09:19:33 INFO::Fitting model to feature number 112, Dorea
+2023-07-06 09:19:33 INFO::Fitting model to feature number 113, Eisenbergiella
+2023-07-06 09:19:33 INFO::Fitting model to feature number 114, Fusicatenibacter
+2023-07-06 09:19:33 INFO::Fitting model to feature number 115, GCA.900066575
+2023-07-06 09:19:33 INFO::Fitting model to feature number 116, GCA.900066755
+2023-07-06 09:19:33 INFO::Fitting model to feature number 117, Howardella
+2023-07-06 09:19:34 INFO::Fitting model to feature number 118, Hungatella
+2023-07-06 09:19:34 INFO::Fitting model to feature number 119, Lachnoclostridium
+2023-07-06 09:19:34 INFO::Fitting model to feature number 120, Lachnospira
+2023-07-06 09:19:34 INFO::Fitting model to feature number 121, Lachnospiraceae
+2023-07-06 09:19:34 INFO::Fitting model to feature number 122, Lachnospiraceae_FCS020_group
+2023-07-06 09:19:34 INFO::Fitting model to feature number 123, Lachnospiraceae_NC2004_group
+2023-07-06 09:19:34 INFO::Fitting model to feature number 124, Lachnospiraceae_ND3007_group
+2023-07-06 09:19:34 INFO::Fitting model to feature number 125, Lachnospiraceae_NK3A20_group
+2023-07-06 09:19:34 INFO::Fitting model to feature number 126, Lachnospiraceae_NK4A136_group
+2023-07-06 09:19:34 INFO::Fitting model to feature number 127, Lachnospiraceae_NK4B4_group
+2023-07-06 09:19:34 INFO::Fitting model to feature number 128, Lachnospiraceae_UCG.001
+2023-07-06 09:19:34 INFO::Fitting model to feature number 129, Lachnospiraceae_UCG.003
+2023-07-06 09:19:34 INFO::Fitting model to feature number 130, Lachnospiraceae_UCG.004
+2023-07-06 09:19:35 INFO::Fitting model to feature number 131, Lachnospiraceae_UCG.008
+2023-07-06 09:19:35 INFO::Fitting model to feature number 132, Lachnospiraceae_UCG.010
+2023-07-06 09:19:35 INFO::Fitting model to feature number 133, Marvinbryantia
+2023-07-06 09:19:35 INFO::Fitting model to feature number 134, Moryella
+2023-07-06 09:19:35 INFO::Fitting model to feature number 135, Oribacterium
+2023-07-06 09:19:35 INFO::Fitting model to feature number 136, Roseburia
+2023-07-06 09:19:35 INFO::Fitting model to feature number 137, Sellimonas
+2023-07-06 09:19:35 INFO::Fitting model to feature number 138, Tuzzerella
+2023-07-06 09:19:35 INFO::Fitting model to feature number 139, Tyzzerella
+2023-07-06 09:19:35 INFO::Fitting model to feature number 140, Monoglobus
+2023-07-06 09:19:35 INFO::Fitting model to feature number 141, X.Eubacterium._coprostanoligenes_group
+2023-07-06 09:19:35 INFO::Fitting model to feature number 142, Butyricicoccus
+2023-07-06 09:19:35 INFO::Fitting model to feature number 143, UCG.008
+2023-07-06 09:19:35 INFO::Fitting model to feature number 144, UCG.009
+2023-07-06 09:19:36 INFO::Fitting model to feature number 145, Colidextribacter
+2023-07-06 09:19:36 INFO::Fitting model to feature number 146, Flavonifractor
+2023-07-06 09:19:36 INFO::Fitting model to feature number 147, Intestinimonas
+2023-07-06 09:19:36 INFO::Fitting model to feature number 148, NK4A214_group
+2023-07-06 09:19:36 INFO::Fitting model to feature number 149, Oscillibacter
+2023-07-06 09:19:36 INFO::Fitting model to feature number 150, Oscillospira
+2023-07-06 09:19:36 INFO::Fitting model to feature number 151, Papillibacter
+2023-07-06 09:19:36 INFO::Fitting model to feature number 152, Pseudoflavonifractor
+2023-07-06 09:19:36 INFO::Fitting model to feature number 153, UCG.002
+2023-07-06 09:19:36 INFO::Fitting model to feature number 154, UCG.003
+2023-07-06 09:19:36 INFO::Fitting model to feature number 155, UCG.005
+2023-07-06 09:19:36 INFO::Fitting model to feature number 156, UCG.007
+2023-07-06 09:19:36 INFO::Fitting model to feature number 157, Hydrogenoanaerobacterium
+2023-07-06 09:19:37 INFO::Fitting model to feature number 158, X.Eubacterium._siraeum_group
+2023-07-06 09:19:37 INFO::Fitting model to feature number 159, Anaerotruncus
+2023-07-06 09:19:37 INFO::Fitting model to feature number 160, CAG.352
+2023-07-06 09:19:37 INFO::Fitting model to feature number 161, Candidatus_Soleaferrea
+2023-07-06 09:19:37 INFO::Fitting model to feature number 162, Faecalibacterium
+2023-07-06 09:19:37 INFO::Fitting model to feature number 163, Fournierella
+2023-07-06 09:19:37 INFO::Fitting model to feature number 164, Incertae_Sedis
+2023-07-06 09:19:37 INFO::Fitting model to feature number 165, Negativibacillus
+2023-07-06 09:19:37 INFO::Fitting model to feature number 166, Phocea
+2023-07-06 09:19:37 INFO::Fitting model to feature number 167, Pygmaiobacter
+2023-07-06 09:19:37 INFO::Fitting model to feature number 168, Ruminococcaceae
+2023-07-06 09:19:37 INFO::Fitting model to feature number 169, Ruminococcus
+2023-07-06 09:19:38 INFO::Fitting model to feature number 170, Subdoligranulum
+2023-07-06 09:19:38 INFO::Fitting model to feature number 171, UBA1819
+2023-07-06 09:19:38 INFO::Fitting model to feature number 172, UCG.010
+2023-07-06 09:19:38 INFO::Fitting model to feature number 173, Peptococcus
+2023-07-06 09:19:38 INFO::Fitting model to feature number 174, X.Eubacterium._brachy_group
+2023-07-06 09:19:38 INFO::Fitting model to feature number 175, X.Eubacterium._nodatum_group
+2023-07-06 09:19:38 INFO::Fitting model to feature number 176, Family_XIII_AD3011_group
+2023-07-06 09:19:38 INFO::Fitting model to feature number 177, Family_XIII_UCG.001
+2023-07-06 09:19:38 INFO::Fitting model to feature number 178, Mogibacterium
+2023-07-06 09:19:38 INFO::Fitting model to feature number 179, Clostridioides
+2023-07-06 09:19:38 INFO::Fitting model to feature number 180, Intestinibacter
+2023-07-06 09:19:38 INFO::Fitting model to feature number 181, Paeniclostridium
+2023-07-06 09:19:38 INFO::Fitting model to feature number 182, Paraclostridium
+2023-07-06 09:19:39 INFO::Fitting model to feature number 183, Romboutsia
+2023-07-06 09:19:39 INFO::Fitting model to feature number 184, Terrisporobacter
+2023-07-06 09:19:39 INFO::Fitting model to feature number 185, Anaerococcus
+2023-07-06 09:19:39 INFO::Fitting model to feature number 186, Ezakiella
+2023-07-06 09:19:39 INFO::Fitting model to feature number 187, Fenollaria
+2023-07-06 09:19:39 INFO::Fitting model to feature number 188, Finegoldia
+2023-07-06 09:19:39 INFO::Fitting model to feature number 189, Murdochiella
+2023-07-06 09:19:39 INFO::Fitting model to feature number 190, Parvimonas
+2023-07-06 09:19:39 INFO::Fitting model to feature number 191, Peptoniphilus
+2023-07-06 09:19:39 INFO::Fitting model to feature number 192, W5053
+2023-07-06 09:19:39 INFO::Fitting model to feature number 193, DTU014
+2023-07-06 09:19:39 INFO::Fitting model to feature number 194, Acidaminococcus
+2023-07-06 09:19:39 INFO::Fitting model to feature number 195, Phascolarctobacterium
+2023-07-06 09:19:40 INFO::Fitting model to feature number 196, Anaerovibrio
+2023-07-06 09:19:40 INFO::Fitting model to feature number 197, Mitsuokella
+2023-07-06 09:19:40 INFO::Fitting model to feature number 198, Allisonella
+2023-07-06 09:19:40 INFO::Fitting model to feature number 199, Dialister
+2023-07-06 09:19:40 INFO::Fitting model to feature number 200, Megasphaera
+2023-07-06 09:19:40 INFO::Fitting model to feature number 201, Veillonella
+2023-07-06 09:19:40 INFO::Fitting model to feature number 202, Cetobacterium
+2023-07-06 09:19:40 INFO::Fitting model to feature number 203, Fusobacterium
+2023-07-06 09:19:40 INFO::Fitting model to feature number 204, Sneathia
+2023-07-06 09:19:40 INFO::Fitting model to feature number 205, Gemmatimonas
+2023-07-06 09:19:40 INFO::Fitting model to feature number 206, P3OB.42
+2023-07-06 09:19:40 INFO::Fitting model to feature number 207, Haliangium
+2023-07-06 09:19:41 INFO::Fitting model to feature number 208, mle1.27
+2023-07-06 09:19:41 INFO::Fitting model to feature number 209, Candidatus_Saccharimonas
+2023-07-06 09:19:41 INFO::Fitting model to feature number 210, Saccharimonadaceae
+2023-07-06 09:19:41 INFO::Fitting model to feature number 211, TM7x
+2023-07-06 09:19:41 INFO::Fitting model to feature number 212, Acetobacter
+2023-07-06 09:19:41 INFO::Fitting model to feature number 213, Roseomonas
+2023-07-06 09:19:41 INFO::Fitting model to feature number 214, Azospirillum
+2023-07-06 09:19:41 INFO::Fitting model to feature number 215, Brevundimonas
+2023-07-06 09:19:41 INFO::Fitting model to feature number 216, Caulobacter
+2023-07-06 09:19:41 INFO::Fitting model to feature number 217, Phenylobacterium
+2023-07-06 09:19:41 INFO::Fitting model to feature number 218, Methylocystis
+2023-07-06 09:19:41 INFO::Fitting model to feature number 219, Microvirga
+2023-07-06 09:19:41 INFO::Fitting model to feature number 220, Allorhizobium.Neorhizobium.Pararhizobium.Rhizobium
+2023-07-06 09:19:42 INFO::Fitting model to feature number 221, Phyllobacterium
+2023-07-06 09:19:42 INFO::Fitting model to feature number 222, Paracoccus
+2023-07-06 09:19:42 INFO::Fitting model to feature number 223, Novosphingobium
+2023-07-06 09:19:42 INFO::Fitting model to feature number 224, Sandarakinorhabdus
+2023-07-06 09:19:42 INFO::Fitting model to feature number 225, Sphingomonas
+2023-07-06 09:19:42 INFO::Fitting model to feature number 226, Aeromonas
+2023-07-06 09:19:42 INFO::Fitting model to feature number 227, Anaerobiospirillum
+2023-07-06 09:19:42 INFO::Fitting model to feature number 228, Succinatimonas
+2023-07-06 09:19:42 INFO::Fitting model to feature number 229, Succinivibrio
+2023-07-06 09:19:42 INFO::Fitting model to feature number 230, Marinobacter
+2023-07-06 09:19:42 INFO::Fitting model to feature number 231, Comamonas
+2023-07-06 09:19:42 INFO::Fitting model to feature number 232, Methylotenera
+2023-07-06 09:19:42 INFO::Fitting model to feature number 233, Janthinobacterium
+2023-07-06 09:19:43 INFO::Fitting model to feature number 234, Oxalobacter
+2023-07-06 09:19:43 INFO::Fitting model to feature number 235, C39
+2023-07-06 09:19:43 INFO::Fitting model to feature number 236, Parasutterella
+2023-07-06 09:19:43 INFO::Fitting model to feature number 237, Sutterella
+2023-07-06 09:19:43 INFO::Fitting model to feature number 238, Enterobacter
+2023-07-06 09:19:43 INFO::Fitting model to feature number 239, Escherichia.Shigella
+2023-07-06 09:19:43 INFO::Fitting model to feature number 240, Franconibacter
+2023-07-06 09:19:43 INFO::Fitting model to feature number 241, Klebsiella
+2023-07-06 09:19:43 INFO::Fitting model to feature number 242, Plesiomonas
+2023-07-06 09:19:43 INFO::Fitting model to feature number 243, Moellerella
+2023-07-06 09:19:43 INFO::Fitting model to feature number 244, Morganella
+2023-07-06 09:19:43 INFO::Fitting model to feature number 245, Proteus
+2023-07-06 09:19:44 INFO::Fitting model to feature number 246, Serratia
+2023-07-06 09:19:44 INFO::Fitting model to feature number 247, Actinobacillus
+2023-07-06 09:19:44 INFO::Fitting model to feature number 248, Aggregatibacter
+2023-07-06 09:19:44 INFO::Fitting model to feature number 249, Haemophilus
+2023-07-06 09:19:44 INFO::Fitting model to feature number 250, Acinetobacter
+2023-07-06 09:19:44 INFO::Fitting model to feature number 251, Pseudomonas
+2023-07-06 09:19:44 INFO::Fitting model to feature number 252, Stenotrophomonas
+2023-07-06 09:19:44 INFO::Fitting model to feature number 253, SAR324_clade.Marine_group_B.
+2023-07-06 09:19:44 INFO::Fitting model to feature number 254, Brachyspira
+2023-07-06 09:19:44 INFO::Fitting model to feature number 255, Sphaerochaeta
+2023-07-06 09:19:44 INFO::Fitting model to feature number 256, Treponema
+2023-07-06 09:19:45 INFO::Fitting model to feature number 257, Cloacibacillus
+2023-07-06 09:19:45 INFO::Fitting model to feature number 258, Pyramidobacter
+2023-07-06 09:19:45 INFO::Fitting model to feature number 259, cvE6
+2023-07-06 09:19:45 INFO::Fitting model to feature number 260, vadinBE97
+2023-07-06 09:19:45 INFO::Fitting model to feature number 261, Victivallaceae
+2023-07-06 09:19:45 INFO::Fitting model to feature number 262, Victivallis
+2023-07-06 09:19:45 INFO::Fitting model to feature number 263, Akkermansia
+2023-07-06 09:19:45 INFO::Counting total values for each feature
+2023-07-06 09:19:45 INFO::Writing residuals to file ./04_analysis_output//outputs_2023-07-06_09-16-11/maaslin/mothers_all/residuals.rds
+2023-07-06 09:19:45 INFO::Writing all results to file (ordered by increasing q-values): ./04_analysis_output//outputs_2023-07-06_09-16-11/maaslin/mothers_all/all_results.tsv
+2023-07-06 09:19:45 INFO::Writing the significant results (those which are less than or equal to the threshold of 0.100000 ) to file (ordered by increasing q-values): ./04_analysis_output//outputs_2023-07-06_09-16-11/maaslin/mothers_all/significant_results.tsv
+2023-07-06 09:19:45 INFO::Writing heatmap of significant results to file: ./04_analysis_output//outputs_2023-07-06_09-16-11/maaslin/mothers_all/heatmap.pdf
